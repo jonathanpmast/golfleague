@@ -1,8 +1,10 @@
 import {promises as fs} from "fs";
 import axios from "axios";
+import dotenv from "dotenv";
 
 async function main() {
-    const localConfigUrl = "http://localhost:7071/api/Config";
+    dotenv.config();
+    const localConfigUrl = process.env.CONFIG_SERVICE_URL;
 
     var data = await loadConfigData();
     var json = JSON.stringify(data);
