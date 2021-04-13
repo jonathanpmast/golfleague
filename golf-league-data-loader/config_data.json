@@ -1,0 +1,81 @@
+{
+    "id": "1",
+    "courseData":{
+        "name":"Boone Links",
+        "holes":[
+            {
+                "number": 1,
+                "strokeIndex": 17
+            },
+            {
+                "number": 2,
+                "strokeIndex":1
+            },
+            {
+                "number": 3,
+                "strokeIndex":15
+            },
+            {
+                "number": 4,
+                "strokeIndex":9
+            },
+            {
+                "number": 5,
+                "strokeIndex":11
+            },
+            {
+                "number": 6,
+                "strokeIndex":3
+            },
+            {
+                "number": 7,
+                "strokeIndex":5
+            },
+            {
+                "number": 8,
+                "strokeIndex":13
+            },
+            {
+                "number": 9,
+                "strokeIndex":7
+            },
+            {
+                "number": 10,
+                "strokeIndex": 8
+            },
+            {
+                "number": 11,
+                "strokeIndex":12
+            },
+            {
+                "number": 12,
+                "strokeIndex":2
+            },
+            {
+                "number": 13,
+                "strokeIndex":16
+            },
+            {
+                "number": 14,
+                "strokeIndex":4
+            },
+            {
+                "number": 15,
+                "strokeIndex":14
+            },
+            {
+                "number": 16,
+                "strokeIndex":10
+            },
+            {
+                "number": 17,
+                "strokeIndex":6
+            },
+            {
+                "number": 18,
+                "strokeIndex":18
+            }
+
+        ]
+    }
+}
