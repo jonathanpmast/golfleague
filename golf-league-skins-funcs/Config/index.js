@@ -13,11 +13,18 @@ module.exports = async function (context, req) {
     //     });
     // }
     const configData = JSON.parse(req.body);
-    context.bindings.outputDocument=configData;
+    // context.bindings.outputDocument=configData;
 
 
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: "Success"
-    };
+    // context.res = {
+    //     // status: 200, /* Defaults to 200 */
+    //     body: "Success"
+    // };
+
+    return {
+        res: {
+            body: "Success"
+        },
+        outputDocument: configData
+    }
 }
