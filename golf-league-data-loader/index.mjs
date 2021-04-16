@@ -23,7 +23,7 @@ async function readSkinsData() {
     let scoreData = new Array();
     for(var i=1; i<19; i++)
     {
-
+        scoreData.push(XLSX.utils.sheet_to_json(workbook.Sheets["Skins "+i]));
     }
     
 }
