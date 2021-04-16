@@ -8,7 +8,18 @@
       "connectionStringSetting": "CosmosDbConnectionString",
       "databaseName": "golfleague",
       "collectionName": "golfleague-scores",
-      "createLeaseCollectionIfNotExists": "false"
+      "createLeaseCollectionIfNotExists": "false",
+      "startFromBeginning": "true"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "golfLeagueConfig",
+      "databaseName": "golfleague",
+      "collectionName": "golfleague-config",
+      "connectionStringSetting": "CosmosDbConnectionString",
+      "id": "1",
+      "partitionKey": "1"
     }
   ]
 }

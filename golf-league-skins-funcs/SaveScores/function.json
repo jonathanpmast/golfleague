@@ -21,7 +21,7 @@
       "name": "score",
       "databaseName": "golfleague",
       "collectionName": "golfleague-scores",
-      "createIfNotExists": "true",
+      "createIfNotExists": "false",
       "connectionStringSetting": "CosmosDbConnectionString"
     }
   ]

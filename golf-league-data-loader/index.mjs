@@ -8,7 +8,7 @@ async function main() {
     dotenv.config();
 
     const configUrl = process.env.CONFIG_SERVICE_URL;
-    const pathToExcelWorkbook = process.env.SKINS_WORKBOOK;
+    const pathToExcelWorkbook = process.env.SCOREWORKBOOK_PATH;
     const scoresUrl = process.env.SCORES_SERVICE_URL;
     
     await updateConfigData(configUrl);
