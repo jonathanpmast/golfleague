@@ -6,9 +6,9 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
         "post"
-      ]
+      ],
+      "route": "config"
     },
     {
       "type": "http",
@@ -17,11 +17,11 @@
     },
     {
       "type": "cosmosDB",
-      "direction": "out",
+      "direction": "in",
       "name": "outputDocument",
       "databaseName": "golfleague",
-      "collectionName": "golfleague-scores",
-      "createIfNotExists": "true",
+      "collectionName": "golfleague-config",
+      "createIfNotExists": "false",
       "connectionStringSetting": "CosmosDbConnectionString"
     }
   ]

@@ -1,0 +1,14 @@
+{
+  "bindings": [
+    {
+      "type": "cosmosDBTrigger",
+      "name": "documents",
+      "direction": "in",
+      "leaseCollectionName": "golfleague-scores-leases",
+      "connectionStringSetting": "CosmosDbConnectionString",
+      "databaseName": "golfleague",
+      "collectionName": "golfleague-scores",
+      "createLeaseCollectionIfNotExists": "false"
+    }
+  ]
+}

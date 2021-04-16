@@ -6,9 +6,9 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
-        "post"
-      ]
+        "get"
+      ],
+      "route": "config"
     },
     {
       "type": "http",
@@ -17,12 +17,13 @@
     },
     {
       "type": "cosmosDB",
-      "direction": "out",
-      "name": "outputDocument",
+      "direction": "in",
+      "name": "configData",
       "databaseName": "golfleague",
       "collectionName": "golfleague-config",
-      "createIfNotExists": "false",
-      "connectionStringSetting": "CosmosDbConnectionString"
+      "connectionStringSetting": "CosmosDbConnectionString",
+      "id": "1",
+      "partitionKey": "1"
     }
   ]
 }
