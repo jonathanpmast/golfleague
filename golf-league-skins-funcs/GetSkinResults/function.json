@@ -1,0 +1,29 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ],
+      "route": "skins/{roundYear:int}/{roundNumber:int}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "skinResultsDocument",
+      "databaseName": "golfleague",
+      "collectionName": "golfleague-skinresults",
+      "connectionStringSetting": "CosmosDbConnectionString",
+      "id": "{roundYear}{roundNumber}",
+      "partitionKey": "{roundYear}"
+    }
+  ]
+}
