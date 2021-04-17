@@ -17,7 +17,7 @@ async function main() {
         let roundData = skinsData.roundData[idx];
         
         let json = JSON.stringify(roundData);
-        console.log(json);
+        
         const response = await axios.post(scoresUrl, json);
         console.log(response.statusText);
     }
@@ -46,21 +46,28 @@ async function parseScoreData(sourceScoreData, roundYear,roundNum) {
     let scoreColumnOffset = 3
     let scoreData = {
         "roundId": `${roundYear}${roundNum}`,
-        "golferScores":[]
-    }
+        "golferScores":[],
+        "startHole": null
+    };
     let golferCount=0;
     for(let i=0;i<sourceScoreData.length;i++) {
         let row = sourceScoreData[i];
         if(row[1] !== null && row[1] === "X")
         {
+            if(golferCount === 0)
+                scoreData.startHole = row[scoreColumnOffset] > 0 ? 1 : 10;
+            
             scoreData.golferScores[golferCount] = {
                 "golferName" : row[0],
                 "handicap": row[2],
                 "scores" :[]
             };
-            for(let holeNum = 0; holeNum < 18; holeNum++) 
+            
+            for(let holeNum = 0; holeNum < 9; holeNum++) 
             {
-                scoreData.golferScores[golferCount].scores[holeNum] = row[holeNum+scoreColumnOffset] ?? 0;
+                
+                if(row[holeNum + (scoreData.startHole - 1) + scoreColumnOffset] !== null)
+                    scoreData.golferScores[golferCount].scores[holeNum] = row[holeNum+ (scoreData.startHole - 1)+scoreColumnOffset];
             }
             golferCount += 1;
         }
@@ -80,7 +87,7 @@ async function readSkinsData(workbookpath) {
         
         skinsData.roundData.push(scores);
     }
-    console.log(skinsData);
+    
     return skinsData;
 }
 
