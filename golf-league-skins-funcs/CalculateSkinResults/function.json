@@ -9,7 +9,8 @@
       "databaseName": "golfleague",
       "collectionName": "golfleague-scores",
       "createLeaseCollectionIfNotExists": "false",
-      "startFromBeginning": "true"
+      "startFromBeginning": "true",
+      "leaseCollectionPrefix":"calcskinres"
     },
     {
       "type": "cosmosDB",

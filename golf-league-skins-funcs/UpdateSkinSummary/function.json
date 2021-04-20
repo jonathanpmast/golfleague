@@ -1,0 +1,26 @@
+{
+  "bindings": [
+    {
+      "type": "cosmosDBTrigger",
+      "name": "documents",
+      "direction": "in",
+      "leaseCollectionName": "golfleague-skinresults-leases",
+      "connectionStringSetting": "CosmosDbConnectionString",
+      "databaseName": "golfleague",
+      "collectionName": "golfleague-skinresults",
+      "createLeaseCollectionIfNotExists": "true",
+      "startFromBeginning": "true",
+      "leaseCollectionPrefix": "updskinsumm"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "skinSummaryDoc",
+      "databaseName": "golfleague",
+      "collectionName": "golfleague-skinsummary",
+      "connectionStringSetting": "CosmosDbConnectionString",
+      "id": "{documents.roundYear}",
+      "partitionKey": "{roundYear}"
+    }
+  ]
+}
