@@ -3,6 +3,7 @@ export default async function (context, req) {
     let scoreToSave = req.body;
     scoreToSave.roundYear =  scoreToSave.roundId.toString().substring(0,4);
     scoreToSave.id = scoreToSave.roundId;
+    scoreToSave.createDate = Date.now();
     context.log(scoreToSave);
     return {
         res: {body: "Success" },
