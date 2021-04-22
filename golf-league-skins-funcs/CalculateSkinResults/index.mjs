@@ -6,7 +6,7 @@ function calculateSkins(skinResults) {
         if(minScore.golfersWithScore.length > 1)
         {
             for(let j = 0; j<minScore.golfersWithScore.length; j++){
-                skinResults.results[minScore.golfersWithScore[j]][i].cancelSkin=true;
+                skinResults.results[minScore.golfersWithScore[j]][i].cancelSkin = true;
             }
         }
         else{
