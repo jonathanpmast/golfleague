@@ -4,7 +4,7 @@ export default async function (context, req) {
     let configData = null;
     let response = {};
     configData = JSON.parse(req.body);
-
+    configData.createDate = Date.now();
     response.outputDocument = configData;
     response.res = {
         body: 'Success'
