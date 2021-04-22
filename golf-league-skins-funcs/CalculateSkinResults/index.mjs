@@ -13,7 +13,7 @@ function calculateSkins(skinResults) {
             skinResults.results[minScore.golfersWithScore[0]][i].isSkin = true;
         }
     }
-
+    skinResults.createDate = Date.now();
     return skinResults;
 }
 
@@ -65,7 +65,7 @@ function getStrokeIndexes(holes,scoreData) {
     return strokeIndexes;
 }
 
-// receives vanilla score data for a set of golfers for a given round in a random golf league in the 'documents' parameter
+// receives vanilla score data for a set of golfers for a given round in a golf league in the 'documents' parameter
 // the data is a json document which, in th is case, is sourced out of an Azure Cosmos DB, additionally receives a 
 // configuration document in the "golfLeagueConfig" parameter that defines things like the stroke index for a
 // given hole
