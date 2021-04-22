@@ -9,7 +9,6 @@ export default async function (context, req) {
     response.res = {
         body: 'Success'
     };
-    
-    
+        
     return response;
 }
