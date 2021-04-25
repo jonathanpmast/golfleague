@@ -1,16 +1,11 @@
 {
   "bindings": [
     {
-      "type": "cosmosDBTrigger",
-      "name": "documents",
-      "direction": "in",
-      "leaseCollectionName": "golfleague-skinresults-leases",
-      "connectionStringSetting": "CosmosDbConnectionString",
-      "databaseName": "golfleague",
-      "collectionName": "golfleague-skinresults",
-      "createLeaseCollectionIfNotExists": "true",
-      "startFromBeginning": "true",
-      "leaseCollectionPrefix": "updskinsumm"
+      "type":"queueTrigger",
+      "direction":"in",
+      "name":"queueTrigger",
+      "queueName":"%SkinResultupdateQueueName%",
+      "connection":"GolfLeagueStoreAccountConnectionString"
     },
     {
       "type": "cosmosDB",
