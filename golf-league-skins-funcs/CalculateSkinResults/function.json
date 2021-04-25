@@ -10,7 +10,7 @@
       "collectionName": "golfleague-scores",
       "createLeaseCollectionIfNotExists": "false",
       "startFromBeginning": "true",
-      "leaseCollectionPrefix":"calcskinres"
+      "leaseCollectionPrefix": "calcskinres"
     },
     {
       "type": "cosmosDB",
@@ -31,6 +31,13 @@
       "createIfNotExists": "false",
       "connectionStringSetting": "CosmosDbConnectionString",
       "partitionKey": "roundYear"
+    },
+    {
+      "type": "queue",
+      "direction": "out",
+      "name": "skinResultQueue",
+      "queueName": "SkinResultupdateQueueName",
+      "connection": "GolfLeagueStoreAccountConnectionString"
     }
   ]
 }

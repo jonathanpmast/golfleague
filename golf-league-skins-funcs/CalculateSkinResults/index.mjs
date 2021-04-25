@@ -71,17 +71,22 @@ function getStrokeIndexes(holes,scoreData) {
 // given hole
 export default async function (context, documents, golfLeagueConfig) {
     let skinResults = [];
+    let skinResultIDs = [];
     if (!!documents && documents.length > 0) {
         for(let i = 0; i < documents.length; i++)
         { 
             const scoreData = documents[i];
             const golferScores = scoreData.golferScores;
             const strokeIndexes = getStrokeIndexes(golfLeagueConfig.courseData.holes,scoreData);
+            
+            skinResultIDs.push(scoreData.id);
+
             skinResults[i] = {};  
             skinResults[i].id = scoreData.id;
             skinResults[i].roundYear = scoreData.roundYear;
             skinResults[i].startHole = scoreData.startHole;
             skinResults[i].results={};
+            
             for(let k = 0; k < golferScores.length; k++) {
                 const golferScore = golferScores[k];
                 const scores = golferScore.scores;
@@ -92,6 +97,7 @@ export default async function (context, documents, golfLeagueConfig) {
         }
     }
     return {
-        skinResultsDocument : skinResults
+        skinResultsDocument : skinResults,
+        skinResultQueue : skinResultIDs
     }
 }
