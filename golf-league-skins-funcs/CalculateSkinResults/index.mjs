@@ -65,6 +65,27 @@ function getStrokeIndexes(holes,scoreData) {
     return strokeIndexes;
 }
 
+function buildSummary(skinResults) {
+    let summary = {};
+    summary.totalEntrants = 0;
+    summary.holes = new Array(9).fill(null).map(() => ({"winner":"none"}) );
+    summary.totalSkins = 0;
+
+    for(let golferName in skinResults.results) {
+        summary.totalEntrants++;
+        let result = skinResults.results[golferName];
+        for(let i = 0; i < result.length; i++) {
+            if(result[i].isSkin === true) {
+                summary.holes[i].winner = golferName;
+                summary.holes[i].holeNumber = result[i].holeNumber;
+                summary.totalSkins++;
+            }
+        }
+    }
+    summary.totalSkinMoney = summary.totalEntrants * 5;
+    return summary;
+}
+
 // receives vanilla score data for a set of golfers for a given round in a golf league in the 'documents' parameter
 // the data is a json document which, in th is case, is sourced out of an Azure Cosmos DB, additionally receives a 
 // configuration document in the "golfLeagueConfig" parameter that defines things like the stroke index for a
@@ -79,7 +100,7 @@ export default async function (context, documents, golfLeagueConfig) {
             const golferScores = scoreData.golferScores;
             const strokeIndexes = getStrokeIndexes(golfLeagueConfig.courseData.holes,scoreData);
             
-            skinResultIDs.push(scoreData.id);
+            skinResultIDs.push({"roundId" : scoreData.id.toString(), "roundYear" : scoreData.roundYear.toString() });
 
             skinResults[i] = {};  
             skinResults[i].id = scoreData.id;
@@ -94,6 +115,7 @@ export default async function (context, documents, golfLeagueConfig) {
                 skinResults[i].results[golferScore.golferName] = getHoleResults(golferScore,scores,strokeIndexes,scoreData.startHole);   
             }        
             skinResults[i] = calculateSkins(skinResults[i]);
+            skinResults[i].summary = buildSummary(skinResults[i]);
         }
     }
     return {

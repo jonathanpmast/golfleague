@@ -36,7 +36,7 @@
       "type": "queue",
       "direction": "out",
       "name": "skinResultQueue",
-      "queueName": "SkinResultupdateQueueName",
+      "queueName": "%SkinResultupdateQueueName%",
       "connection": "GolfLeagueStoreAccountConnectionString"
     }
   ]
