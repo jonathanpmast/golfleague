@@ -8,7 +8,7 @@
       "methods": [
         "get"
       ],
-      "route": "skins/{roundYear:int}/{roundNumber:int}"
+      "route": "{league}/skins/{roundYear:int}/{roundNumber:int}"
     },
     {
       "type": "http",
@@ -23,7 +23,7 @@
       "collectionName": "golfleague-skinresults",
       "connectionStringSetting": "CosmosDbConnectionString",
       "id": "{roundYear}{roundNumber}",
-      "partitionKey": "{roundYear}"
+      "partitionKey": "{league}"
     }
   ]
 }

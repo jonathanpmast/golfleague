@@ -6,12 +6,13 @@ import XLSX from "xlsx";
 async function main() {
     console.log("starting...");
     dotenv.config();
-
-    const configUrl = process.env.CONFIG_SERVICE_URL;
+    const rootUrl = process.env.SERVICE_HOST_URL;
+    const configUrl = rootUrl + process.env.LEAGUE_NAME + process.env.CONFIG_SERVICE_PATH;
     const pathToExcelWorkbook = process.env.SCOREWORKBOOK_PATH;
-    const scoresUrl = process.env.SCORES_SERVICE_URL;
-    
+    const scoresUrl = rootUrl + process.env.LEAGUE_NAME + process.env.SCORES_SERVICE_PATH;
+
     await updateConfigData(configUrl);
+
     let skinsData = await readSkinsData(pathToExcelWorkbook);
     for(let idx = 0; idx < skinsData.roundData.length; idx++) {
         let roundData = skinsData.roundData[idx];
@@ -93,8 +94,9 @@ async function readSkinsData(workbookpath) {
 
 async function updateConfigData(configUrl) {
 
-    var data = await loadConfigData();
+    var data = JSON.parse(await loadConfigData());
     var json = JSON.stringify(data);
+    
     const response = await axios.post(configUrl,json);
 
     console.log(response.statusText);

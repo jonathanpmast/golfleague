@@ -8,7 +8,7 @@
       "methods": [
         "post"
       ],
-      "route": "config"
+      "route": "{league}/config"
     },
     {
       "type": "http",
@@ -17,12 +17,12 @@
     },
     {
       "type": "cosmosDB",
-      "direction": "in",
+      "direction": "out",
       "name": "outputDocument",
       "databaseName": "golfleague",
       "collectionName": "golfleague-config",
       "createIfNotExists": "false",
-      "connectionStringSetting": "CosmosDbConnectionString"
+      "connectionStringSetting": "CosmosDbConnectionString"      
     }
   ]
 }

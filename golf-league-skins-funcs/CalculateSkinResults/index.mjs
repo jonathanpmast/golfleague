@@ -90,34 +90,36 @@ function buildSummary(skinResults) {
 // the data is a json document which, in th is case, is sourced out of an Azure Cosmos DB, additionally receives a 
 // configuration document in the "golfLeagueConfig" parameter that defines things like the stroke index for a
 // given hole
-export default async function (context, documents, golfLeagueConfig) {
+export default async function (context, queueTrigger, golfLeagueConfig, documents) {
     let skinResults = [];
     let skinResultIDs = [];
-    if (!!documents && documents.length > 0) {
-        for(let i = 0; i < documents.length; i++)
-        { 
-            const scoreData = documents[i];
-            const golferScores = scoreData.golferScores;
-            const strokeIndexes = getStrokeIndexes(golfLeagueConfig.courseData.holes,scoreData);
-            
-            skinResultIDs.push({"roundId" : scoreData.id.toString(), "roundYear" : scoreData.roundYear.toString() });
+    
+    const scoreData = documents; 
+    const golferScores = scoreData.golferScores;
+    const strokeIndexes = getStrokeIndexes(golfLeagueConfig[0].courseData.holes,scoreData);
+    
+    skinResultIDs.push({
+        "roundId" : scoreData.id.toString(), 
+        "roundYear" : scoreData.roundYear.toString(),
+        "leagueName" : queueTrigger.leagueName
+    });
 
-            skinResults[i] = {};  
-            skinResults[i].id = scoreData.id;
-            skinResults[i].roundYear = scoreData.roundYear;
-            skinResults[i].startHole = scoreData.startHole;
-            skinResults[i].results={};
-            
-            for(let k = 0; k < golferScores.length; k++) {
-                const golferScore = golferScores[k];
-                const scores = golferScore.scores;
-                
-                skinResults[i].results[golferScore.golferName] = getHoleResults(golferScore,scores,strokeIndexes,scoreData.startHole);   
-            }        
-            skinResults[i] = calculateSkins(skinResults[i]);
-            skinResults[i].summary = buildSummary(skinResults[i]);
-        }
-    }
+    skinResults = {};  
+    skinResults.id = scoreData.id;
+    skinResults.roundYear = scoreData.roundYear;
+    skinResults.startHole = scoreData.startHole;
+    skinResults.leagueName = queueTrigger.leagueName;
+    skinResults.results={};
+    
+    for(let k = 0; k < golferScores.length; k++) {
+        const golferScore = golferScores[k];
+        const scores = golferScore.scores;
+        
+        skinResults.results[golferScore.golferName] = getHoleResults(golferScore,scores,strokeIndexes,scoreData.startHole);   
+    }        
+    skinResults = calculateSkins(skinResults);
+    skinResults.summary = buildSummary(skinResults);
+    
     return {
         skinResultsDocument : skinResults,
         skinResultQueue : skinResultIDs

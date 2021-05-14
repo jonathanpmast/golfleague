@@ -4,9 +4,15 @@ export default async function (context, req) {
     scoreToSave.roundYear =  scoreToSave.roundId.toString().substring(0,4);
     scoreToSave.id = scoreToSave.roundId;
     scoreToSave.createDate = Date.now();
-    context.log(scoreToSave);
+    scoreToSave.leagueName = context.bindingData.league;
+    let queueItem = {
+        leagueName: context.bindingData.league,
+        roundYear : scoreToSave.roundYear,
+        roundId : scoreToSave.roundId
+    };
     return {
         res: {body: "Success" },
-        score: scoreToSave
+        score: scoreToSave,
+        outputQueueItem: queueItem
     }
 }

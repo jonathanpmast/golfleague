@@ -15,7 +15,7 @@
       "collectionName": "golfleague-skinsummary",
       "connectionStringSetting": "CosmosDbConnectionString",
       "id": "{roundYear}",
-      "partitionKey": "%LeagueName%"
+      "partitionKey": "{leagueName}"
     },
     {
       "type": "cosmosDB",
@@ -25,7 +25,7 @@
       "collectionName": "golfleague-skinresults",
       "connectionStringSetting": "CosmosDbConnectionString",
       "id": "{roundId}",
-      "partitionKey": "{roundYear}"
+      "partitionKey": "{leagueName}"
     },
     {
       "type": "cosmosDB",
@@ -35,7 +35,7 @@
       "collectionName": "golfleague-skinsummary",
       "createIfNotExists": "false",
       "connectionStringSetting": "CosmosDbConnectionString",
-      "partitionKey": "leaguename"
+      "partitionKey": "{leagueName}"
     }
   ]
 }

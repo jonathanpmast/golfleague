@@ -8,7 +8,7 @@
       "methods": [
         "get"
       ],
-      "route": "scores/{date:long}"
+      "route": "{league}/scores/{date:long}"
     },
     {
       "type": "http",
@@ -23,7 +23,7 @@
       "collectionName": "golfleague-scores",
       "connectionStringSetting": "CosmosDbConnectionString",
       "id": "{roundId}",
-      "partitionKey": "roundId",
+      "partitionKey": "{league}",
       "sqlQuery": "select * from \"golfleague-scores\" as c where c.roundId={date}"
     }
   ]

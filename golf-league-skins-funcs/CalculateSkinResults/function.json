@@ -1,16 +1,11 @@
 {
   "bindings": [
     {
-      "type": "cosmosDBTrigger",
-      "name": "documents",
+      "type": "queueTrigger",
       "direction": "in",
-      "leaseCollectionName": "golfleague-scores-leases",
-      "connectionStringSetting": "CosmosDbConnectionString",
-      "databaseName": "golfleague",
-      "collectionName": "golfleague-scores",
-      "createLeaseCollectionIfNotExists": "false",
-      "startFromBeginning": "true",
-      "leaseCollectionPrefix": "calcskinres"
+      "name": "queueTrigger",
+      "queueName": "%ScorePostedQueueName%",
+      "connection": "GolfLeagueStoreAccountConnectionString"
     },
     {
       "type": "cosmosDB",
@@ -19,8 +14,7 @@
       "databaseName": "golfleague",
       "collectionName": "golfleague-config",
       "connectionStringSetting": "CosmosDbConnectionString",
-      "id": "1",
-      "partitionKey": "1"
+      "partitionKey": "{leagueName}"
     },
     {
       "type": "cosmosDB",
@@ -30,7 +24,7 @@
       "collectionName": "golfleague-skinresults",
       "createIfNotExists": "false",
       "connectionStringSetting": "CosmosDbConnectionString",
-      "partitionKey": "roundYear"
+      "partitionKey": "{leagueName}"
     },
     {
       "type": "queue",
@@ -38,6 +32,16 @@
       "name": "skinResultQueue",
       "queueName": "%SkinResultupdateQueueName%",
       "connection": "GolfLeagueStoreAccountConnectionString"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "documents",
+      "databaseName": "golfleague",
+      "collectionName": "golfleague-scores",
+      "connectionStringSetting": "CosmosDbConnectionString",
+      "id": "{roundId}",
+      "partitionKey": "{leagueName}"
     }
   ]
 }

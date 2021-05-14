@@ -8,7 +8,7 @@
       "methods": [
         "get"
       ],
-      "route": "config"
+      "route": "{league}/config"
     },
     {
       "type": "http",
@@ -21,9 +21,8 @@
       "name": "configData",
       "databaseName": "golfleague",
       "collectionName": "golfleague-config",
-      "connectionStringSetting": "CosmosDbConnectionString",
-      "id": "1",
-      "partitionKey": "1"
+      "connectionStringSetting": "CosmosDbConnectionString",      
+      "partitionKey": "{league}"
     }
   ]
 }
