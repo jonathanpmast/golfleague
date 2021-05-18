@@ -48,7 +48,9 @@ async function parseParticipation(sourceParticipationData) {
 }
 
 async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly=true) {
-    let scoreColumnOffset = 3
+    const handicapColumn = skinsOnly ? 2 : 3;
+    const inSkinsColumn = skinsOnly ? 
+    let scoreColumnOffset = 3;
     let scoreData = {
         "roundId": `${roundYear}${roundNum}`,
         "golferScores":[],
