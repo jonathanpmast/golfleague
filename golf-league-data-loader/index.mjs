@@ -10,17 +10,22 @@ async function main() {
     const configUrl = rootUrl + process.env.LEAGUE_NAME + process.env.CONFIG_SERVICE_PATH;
     const pathToExcelWorkbook = process.env.SCOREWORKBOOK_PATH;
     const scoresUrl = rootUrl + process.env.LEAGUE_NAME + process.env.SCORES_SERVICE_PATH;
+    const pathsToExcelWorkbook = process.env.SCOREWORKBOOK_PATHS.split("|");
 
     await updateConfigData(configUrl);
-
-    let skinsData = await readSkinsData(pathToExcelWorkbook);
-    for(let idx = 0; idx < skinsData.roundData.length; idx++) {
-        let roundData = skinsData.roundData[idx];
-        
-        let json = JSON.stringify(roundData);
-        
-        const response = await axios.post(scoresUrl, json);
-        console.log(response.statusText);
+    for(let i=0; i < pathsToExcelWorkbook.length; i++)
+    {
+        let pathToExcelWorkbook = pathsToExcelWorkbook[i];
+        console.log("Processing " + pathToExcelWorkbook);
+        let skinsData = await readSkinsData(pathToExcelWorkbook);
+        for(let idx = 0; idx < skinsData.roundData.length; idx++) {
+            let roundData = skinsData.roundData[idx];
+            
+            let json = JSON.stringify(roundData);
+            
+            const response = await axios.post(scoresUrl, json);
+            console.log(response.statusText);
+        }
     }
 }
 
@@ -43,7 +48,7 @@ async function parseParticipation(sourceParticipationData) {
     return participationData;
 }
 
-async function parseScoreData(sourceScoreData, roundYear,roundNum) {
+async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly=true) {
     let scoreColumnOffset = 3
     let scoreData = {
         "roundId": `${roundYear}${roundNum}`,
@@ -53,6 +58,7 @@ async function parseScoreData(sourceScoreData, roundYear,roundNum) {
     let golferCount=0;
     for(let i=0;i<sourceScoreData.length;i++) {
         let row = sourceScoreData[i];
+        //if they played the round, record their score
         if(row[1] !== null && row[1] === "X")
         {
             if(golferCount === 0)
@@ -61,7 +67,8 @@ async function parseScoreData(sourceScoreData, roundYear,roundNum) {
             scoreData.golferScores[golferCount] = {
                 "golferName" : row[0],
                 "handicap": row[2],
-                "scores" :[]
+                "scores" :[],
+                "inSkins": row[2]
             };
             
             for(let holeNum = 0; holeNum < 9; holeNum++) 
