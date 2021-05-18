@@ -7,8 +7,7 @@ async function main() {
     console.log("starting...");
     dotenv.config();
     const rootUrl = process.env.SERVICE_HOST_URL;
-    const configUrl = rootUrl + process.env.LEAGUE_NAME + process.env.CONFIG_SERVICE_PATH;
-    const pathToExcelWorkbook = process.env.SCOREWORKBOOK_PATH;
+    const configUrl = rootUrl + process.env.LEAGUE_NAME + process.env.CONFIG_SERVICE_PATH;    
     const scoresUrl = rootUrl + process.env.LEAGUE_NAME + process.env.SCORES_SERVICE_PATH;
     const pathsToExcelWorkbook = process.env.SCOREWORKBOOK_PATHS.split("|");
 
