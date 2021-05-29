@@ -7,7 +7,22 @@
       "request": "attach",
       "port": 9229,
       "preLaunchTask": "func: host start"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Data Loader",
+      "cwd": "${workspaceFolder}/golf-league-data-loader",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 9228,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "preLaunchTask": "npm: install - golf-league-data-loader"           
     }
-
   ]
 }

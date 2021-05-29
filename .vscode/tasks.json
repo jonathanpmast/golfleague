@@ -27,6 +27,14 @@
       "options": {
         "cwd": "${workspaceFolder}/golf-league-skins-funcs"
       }
+    },    
+    {
+      "type": "npm",
+      "script": "install",
+      "path": "golf-league-data-loader/",
+      "problemMatcher": [],
+      "label": "npm: install - golf-league-data-loader",
+      "detail": "install dependencies from package"
     }
   ]
 }

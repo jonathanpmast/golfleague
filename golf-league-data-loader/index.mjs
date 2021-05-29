@@ -16,7 +16,7 @@ async function main() {
     {
         let pathToExcelWorkbook = pathsToExcelWorkbook[i];
         console.log("Processing " + pathToExcelWorkbook);
-        let skinsData = await readSkinsData(pathToExcelWorkbook);
+        let skinsData = await readSkinsData(pathToExcelWorkbook,2020 + i, i == 0);
         for(let idx = 0; idx < skinsData.roundData.length; idx++) {
             let roundData = skinsData.roundData[idx];
             
@@ -48,9 +48,10 @@ async function parseParticipation(sourceParticipationData) {
 }
 
 async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly=true) {
-    const handicapColumn = skinsOnly ? 2 : 3;
-    const inSkinsColumn = skinsOnly ? 
-    let scoreColumnOffset = 3;
+    const handicapColumnIndex = skinsOnly ? 2 : 3;
+    const inSkinsColumnIndex = skinsOnly ? 1 : 2;
+    const scoreColumnOffset = 3;
+    console.log("skinsOnly: " + skinsOnly + " HandicapColumnIndex: " + handicapColumnIndex + " InSkinsColumnIndex: " + inSkinsColumnIndex);
     let scoreData = {
         "roundId": `${roundYear}${roundNum}`,
         "golferScores":[],
@@ -64,12 +65,13 @@ async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly=true
         {
             if(golferCount === 0)
                 scoreData.startHole = row[scoreColumnOffset] > 0 ? 1 : 10;
-            
+            let inSkins = (skinsOnly ? true : row[inSkinsColumnIndex] === 'X');
+            console.log(inSkins);
             scoreData.golferScores[golferCount] = {
                 "golferName" : row[0],
-                "handicap": row[2],
+                "handicap": row[handicapColumnIndex],
                 "scores" :[],
-                "inSkins": row[2]
+                "inSkins": inSkins
             };
             
             for(let holeNum = 0; holeNum < 9; holeNum++) 
@@ -84,17 +86,18 @@ async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly=true
     return scoreData;
 }
 
-async function readSkinsData(workbookpath) {
+async function readSkinsData(workbookpath,roundYear,skinsOnly=true) {
     
     var workbook = XLSX.readFile(workbookpath);
     let skinsData = {};    
     skinsData.participationData = await parseParticipation(XLSX.utils.sheet_to_json(workbook.Sheets["Skins By Week"],{header:1}));
     skinsData.roundData=[];
-    for(var i=1; i<19; i++)
+    for(var i=1; i < 19; i++)
     {
-        let scores = await parseScoreData(XLSX.utils.sheet_to_json(workbook.Sheets["Skins "+i],{header:1}),2020,i);
-        
-        skinsData.roundData.push(scores);
+        if(workbook.Sheets["Skins " +i] !== undefined) {
+            let scores = await parseScoreData(XLSX.utils.sheet_to_json(workbook.Sheets["Skins "+i],{header:1}),roundYear,i,skinsOnly);
+            skinsData.roundData.push(scores);
+        }
     }
     
     return skinsData;
