@@ -35,7 +35,7 @@
       "collectionName": "golfleague-skinsummary",
       "createIfNotExists": "false",
       "connectionStringSetting": "CosmosDbConnectionString",
-      "partitionKey": "{leagueName}"
+      "partitionKey": "{leagueName}"      
     }
   ]
 }

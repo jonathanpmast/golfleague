@@ -25,7 +25,7 @@ function getMinScoreForHole(skinResults, holeIndex) {
     };
     for(let i in skinResults.results) {
         
-        const score = skinResults.results [i][holeIndex].net;
+        const score = skinResults.results[i][holeIndex].net;
         if(score === output.minScore)
             output.golfersWithScore.push(i);
         if(score < output.minScore) {
@@ -111,11 +111,13 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     skinResults.leagueName = queueTrigger.leagueName;
     skinResults.results={};
     
-    for(let k = 0; k < golferScores.length; k++) {
+    for(let k = 0; k < golferScores.length; k++) {        
         const golferScore = golferScores[k];
-        const scores = golferScore.scores;
-        
-        skinResults.results[golferScore.golferName] = getHoleResults(golferScore,scores,strokeIndexes,scoreData.startHole);   
+        if(golferScore.inSkins === true)
+        {
+            const scores = golferScore.scores;            
+            skinResults.results[golferScore.golferName] = getHoleResults(golferScore,scores,strokeIndexes,scoreData.startHole);   
+        }
     }        
     skinResults = calculateSkins(skinResults);
     skinResults.summary = buildSummary(skinResults);

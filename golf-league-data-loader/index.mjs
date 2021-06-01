@@ -47,10 +47,10 @@ async function parseParticipation(sourceParticipationData) {
     return participationData;
 }
 
-async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly=true) {
+async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly) {
     const handicapColumnIndex = skinsOnly ? 2 : 3;
     const inSkinsColumnIndex = skinsOnly ? 1 : 2;
-    const scoreColumnOffset = 3;
+    const scoreColumnOffset = skinsOnly ? 3 : 4;
     console.log("skinsOnly: " + skinsOnly + " HandicapColumnIndex: " + handicapColumnIndex + " InSkinsColumnIndex: " + inSkinsColumnIndex);
     let scoreData = {
         "roundId": `${roundYear}${roundNum}`,
@@ -86,7 +86,7 @@ async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly=true
     return scoreData;
 }
 
-async function readSkinsData(workbookpath,roundYear,skinsOnly=true) {
+async function readSkinsData(workbookpath,roundYear,skinsOnly) {
     
     var workbook = XLSX.readFile(workbookpath);
     let skinsData = {};    
@@ -113,9 +113,6 @@ async function updateConfigData(configUrl) {
     console.log(response.statusText);
 }
 
-async function updateSkinsData(skinsData) {
-    
-}
 
 async function loadConfigData() {
     return await fs.readFile('./config_data.json', 'utf8');
