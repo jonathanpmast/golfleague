@@ -1,22 +1,35 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+<template>  
+  <div class="grid md:grid-cols-3">
+    <div class="md:col-span-1 md:flex md:justify-end">
+      <the-nav />
+    </div>
+
+    <main class="px-16 py-6 md:col-span-2 bg-gray-100">
+      <div class="flex justify-center md:justify-end">
+        <!-- <a href="#">Log in</a>
+        <a href="#">Sign up</a> -->
+      </div>
+
+      <header>
+        <h2 class="text-gray-700 text-4xl font-bold">
+          Business Men's Golf League
+        </h2>
+        <h3 class="text-2xl font-light">at Boone Links Golf Course</h3>
+      </header>
+      
+      <router-view />
+      
+    </main>
+  </div>
 </template>
 
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import TheNav from './components/Nav.vue'
 
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
+export default {
+    components:{TheNav}    
+}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
