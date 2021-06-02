@@ -2,8 +2,11 @@ name: Deploy Skins Azure Functions
 
 on:
   push:
+    branches:
+      - main
     paths:
       - golf-league-skins-funcs/**
+      - '.github/workflows/skins-funcs-deploy.yml'
 
 # CONFIGURATION
 # For help, go to https://github.com/Azure/Actions
