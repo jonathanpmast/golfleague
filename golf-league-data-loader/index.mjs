@@ -53,7 +53,7 @@ async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly) {
     const scoreColumnOffset = skinsOnly ? 3 : 4;
     console.log("skinsOnly: " + skinsOnly + " HandicapColumnIndex: " + handicapColumnIndex + " InSkinsColumnIndex: " + inSkinsColumnIndex);
     let scoreData = {
-        "roundId": `${roundYear}${roundNum}`,
+        "roundId": `${roundYear}${roundNum < 10 ? '0' : ''}${roundNum}`,
         "golferScores":[],
         "startHole": null
     };
