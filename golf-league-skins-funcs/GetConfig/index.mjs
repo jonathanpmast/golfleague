@@ -6,8 +6,8 @@ export default async function (context, req, configData) {
         res : 
         {
             body: {
-                    id: configData.id,
-                    courseData: configData.courseData
+                    id: configData[0].id,
+                    courseData: configData[0].courseData
             }
         }
     }
