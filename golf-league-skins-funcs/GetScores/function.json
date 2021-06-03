@@ -8,7 +8,7 @@
       "methods": [
         "get"
       ],
-      "route": "{league}/scores/{roundYear:int}/{roundNumber:int}"
+      "route": "{league}/scores/{roundYear:int?}/{roundNumber:int?}"
     },
     {
       "type": "http",
@@ -18,12 +18,12 @@
     {
       "type": "cosmosDB",
       "direction": "in",
-      "name": "scoreDoc",
+      "name": "scoreDocs",
       "databaseName": "golfleague",
       "collectionName": "golfleague-scores",
       "connectionStringSetting": "CosmosDbConnectionString",      
       "partitionKey": "{league}",
-      "id": "{roundYear}{roundNumber}"
+      "sqlQuery": "SELECT * from c WHERE ((IS_NULL({roundYear})) OR (c.roundYear={roundYear})) AND ((IS_NULL({roundNumber})) OR (c.roundNumber = {roundNumber})) ORDER BY c.roundPlayedDate DESC" 
     }
   ]
 }
