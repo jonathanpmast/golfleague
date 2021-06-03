@@ -21,7 +21,7 @@ async function main() {
             let roundData = skinsData.roundData[idx];
             
             let json = JSON.stringify(roundData);
-            
+            console.log(`Posting scores for Round: ${roundData.roundId}`)
             const response = await axios.post(scoresUrl, json);
             console.log(response.statusText);
         }
@@ -51,12 +51,15 @@ async function parseScoreData(sourceScoreData, roundYear,roundNum,skinsOnly) {
     const handicapColumnIndex = skinsOnly ? 2 : 3;
     const inSkinsColumnIndex = skinsOnly ? 1 : 2;
     const scoreColumnOffset = skinsOnly ? 3 : 4;
-    console.log("skinsOnly: " + skinsOnly + " HandicapColumnIndex: " + handicapColumnIndex + " InSkinsColumnIndex: " + inSkinsColumnIndex);
+    let roundPlayedDate = new Date(new Date(1900,0,1).setDate(sourceScoreData[2][0]-1));
+    
     let scoreData = {
-        "roundId": `${roundYear}${roundNum < 10 ? '0' : ''}${roundNum}`,
+        "roundId": `${roundYear}${roundNum}`,
         "golferScores":[],
-        "startHole": null
+        "startHole": null,
+        "roundPlayedDate": roundPlayedDate
     };
+    console.log(scoreData.roundPlayedDate);
     let golferCount=0;
     for(let i=0;i<sourceScoreData.length;i++) {
         let row = sourceScoreData[i];
