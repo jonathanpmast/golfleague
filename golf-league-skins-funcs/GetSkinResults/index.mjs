@@ -1,8 +1,8 @@
-export default async function (context, req, skinResultsDocument) {
-    context.log(skinResultsDocument);
+export default async function (context, req, skinResultsDocuments) {
+    
     return {
         res: {
-            body: skinResultsDocument
+            body: skinResultsDocuments
         }
     }
 }

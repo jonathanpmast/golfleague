@@ -109,6 +109,7 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     skinResults = {};  
     skinResults.id = scoreData.id;
     skinResults.roundYear = scoreData.roundYear;
+    skinResults.roundNumber = scoreData.roundNumber;
     skinResults.startHole = scoreData.startHole;
     skinResults.leagueName = queueTrigger.leagueName;
     skinResults.results={};
