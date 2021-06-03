@@ -99,8 +99,10 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     const strokeIndexes = getStrokeIndexes(golfLeagueConfig[0].courseData.holes,scoreData);
     
     skinResultIDs.push({
-        "roundId" : scoreData.id.toString(), 
-        "roundYear" : scoreData.roundYear.toString(),
+        "roundId" : scoreData.id, 
+        "roundNumber": scoreData.roundNumber,
+        "roundYear" : scoreData.roundYear,
+        "roundPlayedDate": scoreData.roundPlayedDate,
         "leagueName" : queueTrigger.leagueName
     });
 
