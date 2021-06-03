@@ -18,12 +18,12 @@
     {
       "type": "cosmosDB",
       "direction": "in",
-      "name": "skinResultsDocument",
+      "name": "skinResultsDocuments",
       "databaseName": "golfleague",
       "collectionName": "golfleague-skinresults",
-      "connectionStringSetting": "CosmosDbConnectionString",
-      "id": "{roundYear}{roundNumber}",
-      "partitionKey": "{league}"
+      "connectionStringSetting": "CosmosDbConnectionString",      
+      "partitionKey": "{league}",
+      "sqlQuery":"SELECT * from c WHERE ((IS_NULL({roundYear})) OR (c.roundYear={roundYear})) AND ((IS_NULL({roundNumber})) OR (c.roundNumber = {roundNumber})) ORDER BY c.roundPlayedDate DESC"
     }
   ]
 }
