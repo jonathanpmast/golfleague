@@ -62,7 +62,8 @@ export default function useSkins() {
                         winnerName : winnerName,
                         holeWon : summaryHole.holeNumber,
                         gross: week.results[summaryHole.winner][holeIndex].gross,
-                        net: week.results[summaryHole.winner][holeIndex].net
+                        net: week.results[summaryHole.winner][holeIndex].net,
+                        amountWon : week.summary.totalSkinMoney / week.summary.totalSkins
                     }
                 )
             }

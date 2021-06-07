@@ -6,7 +6,7 @@
         v-for="(hole,idx) in recentWinners"
         :key="idx"
       >
-        <span class="font-bold">{{ hole.winnerName }}</span> won on <span class="font-bold">#{{ hole.holeWon }}</span> with a <span class="font-bold">{{ hole.gross }} net {{ hole.net }}</span>
+        <span class="font-bold">{{ hole.winnerName }}</span> won <span class="font-bold">${{ hole.amountWon }}</span> on <span class="font-bold">#{{ hole.holeWon }}</span> with a <span class="font-bold">{{ hole.gross }} net {{ hole.net }}</span>
       </li>
     </ul>    
   </div>
