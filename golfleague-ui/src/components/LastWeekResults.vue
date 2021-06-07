@@ -1,73 +1,53 @@
 <template>
-    <h1>Skin Results for {{data.roundPlayedDate}}  </h1>
-    <div v-if="!loading && data">
-        <ul>
-          <li v-for="(hole,idx) in data.summary.holes" :key="idx">
-            <span v-if="hasAWinner(hole)"> {{idx + 1}} {{hole.winner}} </span>
-          </li>
-        </ul>    
-    </div>
+  <div v-if="!loading && skinData && recentWinners">
+    <h1>Skin Results for {{ formatDate(skinData[0].roundPlayedDate) }}  </h1>
+    <ul>
+      <li
+        v-for="(hole,idx) in recentWinners"
+        :key="idx"
+      >
+        <span class="font-bold">{{ hole.winnerName }}</span> won on <span class="font-bold">#{{ hole.holeWon }}</span> with a <span class="font-bold">{{ hole.gross }} net {{ hole.net }}</span>
+      </li>
+    </ul>    
+  </div>
 
-    <p v-if="loading">
+  <p v-if="loading">
     Still loading..
-    </p>
-    <p v-if="error">
-    {{error}}
-    </p>
+  </p>
+  <p v-if="error">
+    {{ error }}
+  </p>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { computed, onMounted } from "vue";
+import useSkins from "../common/useSkins";
 export default {
-  name: 'Posts',
+  name: 'LastWeekResults',
   props: {
   },
   setup() {
-    const data = ref(null);
-    const loading = ref(true);
-    const error = ref(null);
-
+    const {loadSkinData, loading, error, skinData, getSkinWinners} = useSkins();
+    const recentWinners = computed(() => {
+      return getSkinWinners(skinData.value[0]);
+    });
     function fetchData() {
-      loading.value = true;
-      return fetch('https://func-eus2-golfleague.azurewebsites.net/bmgnky/skins', {
-          method: 'get',
-          headers: {
-              'content-type': 'application/json'
-          }
-      })
-        .then(res => {
-            // a non-200 response code
-            if(!res.ok) {
-                // create error instance with HTTP status
-                const error = new Error(res.statusText);
-                error.json = res.json();
-                throw error;
-            }
-
-            return res.json();
-        })
-        .then(json => {
-            // set the response data
-            console.log(json[0]);
-            data.value = json[0];
-        })
-        .catch(err => {
-            error.value = err;
-            // In case a custom  JSON error response was provied
-            if(err.json) {
-                return err.json.then(json => { 
-                    // set the JSON response message
-                    err.rvalue.message = json.message;
-                });
-            }
-        })
-        .then(() => {
-            loading.value = false;
-        })
+      loadSkinData("bmgnky");
     }
 
     function hasAWinner(summaryRecord) {
       return summaryRecord.winner !== "none";
+    }
+
+    function formatDate(date) {
+      return new Date(date).toLocaleDateString(
+        'en-us',
+        {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }
+      );
     }
     
     onMounted(() => {
@@ -75,10 +55,12 @@ export default {
     });
 
     return {
-      data,
       loading,
       error,
-      hasAWinner
+      skinData,
+      hasAWinner,
+      formatDate,
+      recentWinners
     };
   }
 }
