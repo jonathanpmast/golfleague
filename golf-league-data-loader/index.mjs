@@ -1,16 +1,11 @@
 import {promises as fs} from "fs";
 import axios from "axios";
-import dotenv from "dotenv";
 import XLSX from "xlsx";
+import {pathsToExcelWorkbook,scoresUrl,configUrl} from "./config";
 
 async function main() {
     console.log("starting...");
-    dotenv.config();
-    const rootUrl = process.env.SERVICE_HOST_URL;
-    const configUrl = rootUrl + process.env.LEAGUE_NAME + process.env.CONFIG_SERVICE_PATH;    
-    const scoresUrl = rootUrl + process.env.LEAGUE_NAME + process.env.SCORES_SERVICE_PATH;
-    const pathsToExcelWorkbook = process.env.SCOREWORKBOOK_PATHS.split("|");
-
+    
     await updateConfigData(configUrl);
     for(let i=0; i < pathsToExcelWorkbook.length; i++)
     {
