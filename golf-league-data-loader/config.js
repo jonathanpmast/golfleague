@@ -1,5 +1,9 @@
 import dotenv from "dotenv"
-dotenv.config();
+const path_root = ".env";
+if(process.env.NODE_ENVIRONMENT)
+    dotenv.config({ path: `${path_root}.${process.env.NODE_ENVIRONMENT}`});
+else
+    dotenv.config();
 const rootUrl = process.env.SERVICE_HOST_URL;
 
 module.exports = {

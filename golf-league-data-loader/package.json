@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "dev": "ENVIRONMENT=dev node -r dotenv/config .",
-    "local": "ENVIRONMENT=local node -r dotnenv/config ."
+    "dev": "node -r dotenv/config .",
+    "local": "NODE_ENVIRONMENT=local node -r dotnenv/config ."
   },
   "keywords": [],
   "author": "",
