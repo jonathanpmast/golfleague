@@ -1,11 +1,19 @@
 import {ref, computed} from "vue"
+
+const skinData = ref(null);
+
 export default function useSkins() {
     const debug = true;
     const loading = ref(false);
     const error = ref(null);
-    const skinData = ref(null);
 
     async function loadSkinData(leagueName) {
+        if(skinData.value){
+            if(debug) {
+                console.log(`skinData already loaded, skipping load`);
+            }    
+            return;
+        }
         if(debug) 
             console.log(`loading skin data for ${leagueName}`);
         loading.value = true;
