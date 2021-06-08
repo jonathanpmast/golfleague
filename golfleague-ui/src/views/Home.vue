@@ -1,14 +1,13 @@
 <template>
   <div v-if="skinData">
     <skin-winners v-for="n in numberOfSkinWinnerWeeks" :key="n" :weekData="skinData[n-1]" />
-    
-    <p v-if="loading">
-      Still loading..
-    </p>
-    <p v-if="error">
-      {{ error }}
-    </p>
   </div>
+  <p v-if="loading">
+    Still loading..
+  </p>
+  <p v-if="error">
+    {{ error }}
+  </p>  
 </template>
 <script>
 import {ref, onMounted} from 'vue';

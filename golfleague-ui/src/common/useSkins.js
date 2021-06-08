@@ -68,6 +68,7 @@ export default function useSkins() {
                 winners.push (
                     {
                         winnerName : winnerName,
+                        winnerShortName: winnerName.split(' ')[0][0] +" "+ winnerName.split(' ')[1],
                         holeWon : summaryHole.holeNumber,
                         gross: week.results[summaryHole.winner][holeIndex].gross,
                         net: week.results[summaryHole.winner][holeIndex].net,
