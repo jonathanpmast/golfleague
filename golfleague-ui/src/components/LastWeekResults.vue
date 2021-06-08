@@ -1,7 +1,7 @@
 <template>
   <div v-if="!loading && skinData && recentWinners">
-    <h1>Skin Results for {{ formatDate(skinData[0].roundPlayedDate) }}  </h1>
-    <ul>
+    <h4 class="font-bold pb-2 mt-12 border-b border-gray-200">Skin Results for {{ formatDate(skinData[0].roundPlayedDate) }}  </h4>
+    <ul class="mt-4 p-2 mb-3 rounded bg-white border-gray-200 shadow-md overflow-hidden">
       <li
         v-for="(hole,idx) in recentWinners"
         :key="idx"
