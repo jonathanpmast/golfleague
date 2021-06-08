@@ -7,6 +7,9 @@
             </li> 
         </ul>
         Also it gives me an excuse to think about my golf league when it's cold and/or rainy outside :)
+        <p>
+            If you're curious, all of the source code is <a href="https://github.com/jonathanpmast/golfleague">available on Github</a>
+        </p>
     </div>
 </template>
 <script>
