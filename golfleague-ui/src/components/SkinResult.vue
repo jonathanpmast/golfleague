@@ -31,7 +31,7 @@
             <td class="text-right">
               {{ result.golferName }}
             </td>
-            <td class="text-center border-r">
+            <td class="text-center border-r text-xs">
               {{ result.handicap }}
             </td>
             <td
@@ -41,7 +41,7 @@
             >
               {{ hole.gross }}
             </td>
-            <td class="border-l">
+            <td class="border-l px-2">
               {{ result.grossTotal }}
             </td>
           </tr>
@@ -53,11 +53,12 @@
             <td
               v-for="(hole, netIndex) in result.holes"
               :key="netIndex"
-              class="text-center"
+              class="text-center "
+              :class="{'bg-green-200':hole.isSkin,'bg-red-200':hole.cancelSkin}"
             >
               {{ hole.net }}
             </td>
-            <td class="border-l">
+            <td class="border-l px-2">
               {{ result.netTotal }}
             </td>
           </tr>
