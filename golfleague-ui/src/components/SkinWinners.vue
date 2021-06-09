@@ -14,12 +14,17 @@
 
 </template>
 <script>
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import useSkins from "../common/useSkins";
 export default {
   name: 'LastWeekResults',
   props: {
-    weekData: Object,
+    weekData: {
+      type: Object,
+      default() {
+        return null;
+      }
+    },
   },
 
   setup(props) {

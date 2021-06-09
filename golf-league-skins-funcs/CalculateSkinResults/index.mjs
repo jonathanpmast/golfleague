@@ -72,12 +72,13 @@ function buildSummary(skinResults) {
     summary.holes = new Array(9).fill(null).map(() => ({"winner":"none"}) );
     summary.totalSkins = 0;
 
-    for(let golferName in skinResults.results) {
+    for(let golferIndex in skinResults.results) {
         summary.totalEntrants++;
-        let result = skinResults.results[golferName];
+        let result = skinResults.results[golferIndex];
         for(let i = 0; i < result.holes.length; i++) {
             if(result.holes[i].isSkin === true) {
                 summary.holes[i].winner = result.golferName;
+                summary.holes[i].winnerIndex = golferIndex;
                 summary.holes[i].holeNumber = result.holes[i].holeNumber;
                 summary.totalSkins++;
             }

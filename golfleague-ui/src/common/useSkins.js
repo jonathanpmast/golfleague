@@ -37,7 +37,7 @@ export default function useSkins() {
         .then(json => {
             // set the response 
             if(debug)
-                console.log(`skin data loaded for ${json}`);
+                console.log(`skin data loaded`);
             skinData.value = json;
         })
         .catch(err => {
@@ -70,8 +70,8 @@ export default function useSkins() {
                         winnerName : winnerName,
                         winnerShortName: winnerName.split(' ')[0][0] +" "+ winnerName.split(' ')[1],
                         holeWon : summaryHole.holeNumber,
-                        gross: week.results[summaryHole.winner][holeIndex].gross,
-                        net: week.results[summaryHole.winner][holeIndex].net,
+                        gross: week.results[summaryHole.winnerIndex].holes[holeIndex].gross,
+                        net: week.results[summaryHole.winnerIndex].holes[holeIndex].net,
                         amountWon : week.summary.totalSkinMoney / week.summary.totalSkins
                     }
                 )

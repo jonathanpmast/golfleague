@@ -1,6 +1,10 @@
 <template>
   <div v-if="skinData">
-    <skin-winners v-for="n in numberOfSkinWinnerWeeks" :key="n" :weekData="skinData[n-1]" />
+    <skin-winners
+      v-for="n in numberOfSkinWinnerWeeks" 
+      :key="n" 
+      :week-data="skinData[n-1]"
+    />
   </div>
   <p v-if="loading">
     Still loading..
