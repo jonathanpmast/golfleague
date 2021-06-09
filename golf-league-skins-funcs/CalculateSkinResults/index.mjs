@@ -113,14 +113,19 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     skinResults.startHole = scoreData.startHole;
     skinResults.roundPlayedDate = scoreData.roundPlayedDate;
     skinResults.leagueName = queueTrigger.leagueName;
-    skinResults.results={};
+    skinResults.results=[];
     
     for(let k = 0; k < golferScores.length; k++) {        
         const golferScore = golferScores[k];
         if(golferScore.inSkins === true)
         {
-            const scores = golferScore.scores;            
-            skinResults.results[golferScore.golferName] = getHoleResults(golferScore,scores,strokeIndexes,scoreData.startHole);   
+            const scores = golferScore.scores;          
+            skinResults.results.push({
+                golferName: golferScore.golferName,
+                handicap: golferScore.handicap,
+                holes : getHoleResults(golferScore,scores,strokeIndexes,scoreData.startHole)
+            });
+               
         }
     }        
     skinResults = calculateSkins(skinResults);
