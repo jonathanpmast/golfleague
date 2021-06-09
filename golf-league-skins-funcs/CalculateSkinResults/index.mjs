@@ -1,3 +1,4 @@
+const PER_SKIN_VALUE = 5;
 // assumes it's a 9 hole round and takes the skinResults data set, 
 // looping through each golfer/hole and setting flags if a golfer canceled or won a skin
 function calculateSkins(skinResults) {
@@ -6,11 +7,11 @@ function calculateSkins(skinResults) {
         if(minScore.golfersWithScore.length > 1)
         {
             for(let j = 0; j<minScore.golfersWithScore.length; j++){
-                skinResults.results[minScore.golfersWithScore[j]][i].cancelSkin = true;
+                skinResults.results[minScore.golfersWithScore[j]].holes[i].cancelSkin = true;
             }
         }
         else{
-            skinResults.results[minScore.golfersWithScore[0]][i].isSkin = true;
+            skinResults.results[minScore.golfersWithScore[0]].holes[i].isSkin = true;
         }
     }
     skinResults.createDate = Date.now();
@@ -25,7 +26,7 @@ function getMinScoreForHole(skinResults, holeIndex) {
     };
     for(let i in skinResults.results) {
         
-        const score = skinResults.results[i][holeIndex].net;
+        const score = skinResults.results[i].holes[holeIndex].net;
         if(score === output.minScore)
             output.golfersWithScore.push(i);
         if(score < output.minScore) {
@@ -74,15 +75,15 @@ function buildSummary(skinResults) {
     for(let golferName in skinResults.results) {
         summary.totalEntrants++;
         let result = skinResults.results[golferName];
-        for(let i = 0; i < result.length; i++) {
-            if(result[i].isSkin === true) {
-                summary.holes[i].winner = golferName;
-                summary.holes[i].holeNumber = result[i].holeNumber;
+        for(let i = 0; i < result.holes.length; i++) {
+            if(result.holes[i].isSkin === true) {
+                summary.holes[i].winner = result.golferName;
+                summary.holes[i].holeNumber = result.holes[i].holeNumber;
                 summary.totalSkins++;
             }
         }
     }
-    summary.totalSkinMoney = summary.totalEntrants * 5;
+    summary.totalSkinMoney = summary.totalEntrants * PER_SKIN_VALUE;
     return summary;
 }
 
