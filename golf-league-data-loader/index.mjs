@@ -1,7 +1,7 @@
 import {promises as fs} from "fs";
 import axios from "axios";
 import XLSX from "xlsx";
-import {pathsToExcelWorkbook,scoresUrl,configUrl} from "./config";
+import {pathsToExcelWorkbook,scoresUrl,configUrl} from "./config.js";
 
 async function main() {
     console.log("starting...");
