@@ -7,7 +7,9 @@
         :key="idx"
         class="text-sm md:text-base"
       >
-        <span class="font-bold"><span class="hidden sm:inline">{{ hole.winnerName }}</span><span class="sm:hidden">{{ hole.winnerShortName }}</span></span> won <span class="font-bold">{{ formatDollars(hole.amountWon) }}</span> on <span class="font-bold">#{{ hole.holeWon }}</span> with a <span class="font-bold">{{ hole.gross }} net {{ hole.net }}</span>
+        <span class="font-bold">
+          <responsive-golfer-name :name="hole.winnerName" :shortName="hole.winnerShortName" />
+        </span> won <span class="font-bold">{{ formatDollars(hole.amountWon) }}</span> on <span class="font-bold">#{{ hole.holeWon }}</span> with a <span class="font-bold">{{ hole.gross }} net {{ hole.net }}</span>
       </li>
     </ul>    
   </div>
@@ -16,6 +18,7 @@
 <script>
 import { computed } from "vue";
 import useSkins from "../common/useSkins";
+import ResponsiveGolferName from "../components/ResponsiveGolferName.vue"
 export default {
   name: 'LastWeekResults',
   props: {
@@ -26,7 +29,9 @@ export default {
       }
     },
   },
-
+  components: {
+    ResponsiveGolferName
+  },
   setup(props) {
     const {getSkinWinners} = useSkins();
     

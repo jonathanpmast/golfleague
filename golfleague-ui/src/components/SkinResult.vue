@@ -2,22 +2,22 @@
   <div class="mt-4 p-2 mb-3 rounded bg-white border-gray-200 shadow-md overflow-hidden">
     <table
       v-if="skinResultData"
-      class="table-auto border-collapse text-sm"
+      class="table-auto border-collapse text-sm ml-4"
     >
       <thead>
-        <tr class="border-b">
+        <tr >
           <th />
-          <th class="text-center px-1">
+          <th class="text-center px-1 border">
             H
           </th>
           <th
             v-for="n in 9"
             :key="n"
-            class="text-center px-1"
+            class="text-center px-1 border"
           >
             {{ skinResultData.startHole + n - 1 }}
           </th>
-          <th class="text-center px-1">
+          <th class="text-center px-1 border">
             T
           </th>
         </tr>
@@ -27,11 +27,11 @@
           v-for="(result,idx) in formattedSkinResultData"
           :key="idx"
         >
-          <tr>
-            <td class="text-right">
-              {{ result.golferName }}
+          <tr class="border-b">
+            <td class="text-right pr-2">
+              <responsive-golfer-name :name="result.golferName" :shortName="result.golferShortName" />
             </td>
-            <td class="text-center border-r text-xs">
+            <td class="text-center border text-xs bg-gray-50">
               {{ result.handicap }}
             </td>
             <td
@@ -41,15 +41,14 @@
             >
               {{ hole.gross }}
             </td>
-            <td class="border-l px-2">
+            <td class="border-l border-r px-2">
               {{ result.grossTotal }}
             </td>
           </tr>
           <tr class="border-b">
-            <td class="text-right bg-gray-200">
+            <td colspan="2" class="text-right bg-gray-200 pr-6">
               NET
             </td>
-            <td class="border-r" />
             <td
               v-for="(hole, netIndex) in result.holes"
               :key="netIndex"
@@ -58,7 +57,7 @@
             >
               {{ hole.net }}
             </td>
-            <td class="border-l px-2">
+            <td class="border-l border-r px-2">
               {{ result.netTotal }}
             </td>
           </tr>
@@ -70,6 +69,7 @@
 <script>
 import {computed} from "vue";
 import useUtils from "../common/useUtils";
+import ResponsiveGolferName from "../components/ResponsiveGolferName.vue"
 export default {
     name: "SkinResult",
     props: {
@@ -79,6 +79,9 @@ export default {
                 return null;
             }
         }
+    },
+    components: {
+      ResponsiveGolferName
     },
     setup(props) {
         const {getGolferNames} = useUtils(); 

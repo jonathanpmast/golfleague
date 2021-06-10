@@ -1,10 +1,10 @@
 <template>  
-  <div class="grid md:grid-cols-3">
+  <div class="grid md:grid-cols-5 lg:grid-cols-7">
     <div class="md:col-span-1 md:flex md:justify-end">
       <the-nav />
     </div>
 
-    <main class="px-4 md:px-16 py-6 md:col-span-2 bg-gray-100">
+    <main class="px-4 md:px-16 py-6 md:col-span-4 lg:col-span-6 bg-gray-100">
       <div class="flex justify-center md:justify-end">
         <!-- <a href="#">Log in</a>
         <a href="#">Sign up</a> -->
