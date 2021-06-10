@@ -4,7 +4,7 @@
       <the-nav />
     </div>
 
-    <main class="px-4 md:px-16 py-6 md:col-span-4 lg:col-span-6 bg-gray-100">
+    <main class="px-4 md:px-16 sm:mr-8 py-6 md:col-span-4 lg:col-span-6 bg-gray-100">
       <div class="flex justify-center md:justify-end">
         <!-- <a href="#">Log in</a>
         <a href="#">Sign up</a> -->

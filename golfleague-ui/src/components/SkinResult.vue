@@ -1,8 +1,11 @@
 <template>
-  <div class="mt-4 p-2 mb-3 rounded bg-white border-gray-200 shadow-md overflow-hidden">
+  <div class="overflow-hidden">
+    <h4 class="font-bold pb-2 mt-4 border-b border-gray-200">
+      Skin Results for {{formatDate(skinResultData.roundPlayedDate)}}  
+    </h4>
     <table
       v-if="skinResultData"
-      class="table-auto border-collapse text-sm ml-4"
+      class="table-auto border-collapse ml-5 sm:ml-0 text-sm shadow-md rounded bg-white border-gray-200 mt-2"
     >
       <thead>
         <tr >
@@ -28,7 +31,7 @@
           :key="idx"
         >
           <tr class="border-b">
-            <td class="text-right pr-2">
+            <td class="text-right px-2">
               <responsive-golfer-name :name="result.golferName" :shortName="result.golferShortName" />
             </td>
             <td class="text-center border text-xs bg-gray-50">
@@ -46,8 +49,8 @@
             </td>
           </tr>
           <tr class="border-b">
-            <td colspan="2" class="text-right bg-gray-200 pr-6">
-              NET
+            <td colspan="2" class="text-right text-xs bg-gray-200 pr-2">
+              Net
             </td>
             <td
               v-for="(hole, netIndex) in result.holes"
@@ -84,7 +87,7 @@ export default {
       ResponsiveGolferName
     },
     setup(props) {
-        const {getGolferNames} = useUtils(); 
+        const {getGolferNames,formatDate} = useUtils(); 
         const formattedSkinResultData = computed(() => {
             if(!props.skinResultData)
                 return null;
@@ -100,7 +103,7 @@ export default {
                     handicap: result.handicap,
                     holes: [],
                     netTotal: 0,
-                    grossTotal:0
+                    grossTotal:0,
                 };
                 for(let j = 0; j < result.holes.length; j++) {
                     let holeData = result.holes[j]
@@ -114,7 +117,8 @@ export default {
         });
 
         return {
-            formattedSkinResultData
+            formattedSkinResultData,
+            formatDate
         }
     },
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="skinData">
     <skin-result :skin-result-data="currentSkinResult" />    
   </div>
   <p v-if="loading">

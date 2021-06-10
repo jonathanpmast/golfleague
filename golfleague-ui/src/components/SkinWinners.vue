@@ -18,6 +18,7 @@
 <script>
 import { computed } from "vue";
 import useSkins from "../common/useSkins";
+import useUtils from "../common/useUtils";
 import ResponsiveGolferName from "../components/ResponsiveGolferName.vue"
 export default {
   name: 'LastWeekResults',
@@ -34,18 +35,8 @@ export default {
   },
   setup(props) {
     const {getSkinWinners} = useSkins();
-    
+    const {formatDate} = useUtils();
     const recentWinners = computed(() => getSkinWinners(props.weekData));    
-    function formatDate(date) {
-      return new Date(date).toLocaleDateString(
-        'en-us',
-        {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }
-      );
-    }
     
     const formatDollars = function(number) {
         var formatter = new Intl.NumberFormat('en-US' , {
