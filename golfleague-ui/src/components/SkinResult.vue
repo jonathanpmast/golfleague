@@ -1,11 +1,8 @@
 <template>
-  <div class="overflow-hidden">
-    <h4 class="font-bold pb-2 mt-4 border-b border-gray-200">
-      Skin Results for {{formatDate(skinResultData.roundPlayedDate)}}  
-    </h4>
+  <div class="overflow-hidden flex justify-center sm:justify-start">
     <table
       v-if="skinResultData"
-      class="table-auto border-collapse ml-5 sm:ml-0 text-sm shadow-md rounded bg-white border-gray-200 mt-2"
+      class="table-auto border-collapse text-sm shadow-md rounded bg-white border-gray-200 mt-2"
     >
       <thead>
         <tr >
@@ -31,7 +28,7 @@
           :key="idx"
         >
           <tr class="border-b">
-            <td class="text-right px-2">
+            <td class="text-right text-sm px-1">
               <responsive-golfer-name :name="result.golferName" :shortName="result.golferShortName" />
             </td>
             <td class="text-center border-r text-xs bg-gray-50">
