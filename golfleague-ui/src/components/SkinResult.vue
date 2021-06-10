@@ -9,7 +9,7 @@
     >
       <thead>
         <tr >
-          <th />
+          <th class="border-b bg-gray-200" />
           <th class="text-center px-1 border">
             H
           </th>
@@ -34,7 +34,7 @@
             <td class="text-right px-2">
               <responsive-golfer-name :name="result.golferName" :shortName="result.golferShortName" />
             </td>
-            <td class="text-center border text-xs bg-gray-50">
+            <td class="text-center border-r text-xs bg-gray-50">
               {{ result.handicap }}
             </td>
             <td
@@ -49,7 +49,7 @@
             </td>
           </tr>
           <tr class="border-b">
-            <td colspan="2" class="text-right text-xs bg-gray-200 pr-2">
+            <td colspan="2" class="text-right text-xs border-r bg-gray-200 pr-2">
               Net
             </td>
             <td
