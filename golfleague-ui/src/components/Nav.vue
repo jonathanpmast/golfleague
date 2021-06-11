@@ -29,8 +29,10 @@
         :key="item.id"
         class="text-gray-700 font-bold py-1"
       >
-        <router-link :to="item.link" class="flex justify-end px-4">
-        
+        <router-link
+          :to="item.link"
+          class="flex justify-end px-4"
+        >
           <span>{{ item.title }}</span>
           <svg
             class="w-5 ml-1"

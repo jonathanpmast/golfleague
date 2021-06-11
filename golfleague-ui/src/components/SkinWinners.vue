@@ -1,6 +1,14 @@
 <template>
-  <div v-if="weekData && recentWinners" class="max-w-md">
-    <h4 v-if="showHeader" class="font-bold pb-2 mt-4 border-b border-gray-200">Skin Winners for {{ formatDate(weekData.roundPlayedDate) }}  </h4>
+  <div
+    v-if="weekData && recentWinners"
+    class="max-w-md"
+  >
+    <h4
+      v-if="showHeader"
+      class="font-bold pb-2 mt-4 border-b border-gray-200"
+    >
+      Skin Winners for {{ formatDate(weekData.roundPlayedDate) }}
+    </h4>
     <ul class="mt-4 p-2 mb-3 rounded bg-white border-gray-200 shadow-md overflow-hidden">
       <li
         v-for="(hole,idx) in recentWinners"
@@ -8,12 +16,14 @@
         class="text-sm md:text-base"
       >
         <span class="font-bold">
-          <responsive-golfer-name :name="hole.winnerName" :shortName="hole.winnerShortName" />
+          <responsive-golfer-name
+            :name="hole.winnerName"
+            :short-name="hole.winnerShortName"
+          />
         </span> won <span class="font-bold">{{ formatDollars(hole.amountWon) }}</span> on <span class="font-bold">#{{ hole.holeWon }}</span> with a <span class="font-bold">{{ hole.gross }} net {{ hole.net }}</span>
       </li>
     </ul>    
   </div>
-
 </template>
 <script>
 import { computed } from "vue";
@@ -22,6 +32,9 @@ import useUtils from "../common/useUtils";
 import ResponsiveGolferName from "../components/ResponsiveGolferName.vue"
 export default {
   name: 'LastWeekResults',
+  components: {
+    ResponsiveGolferName
+  },
   props: {
     weekData: {
       type: Object,
@@ -35,9 +48,6 @@ export default {
         return true;
       }
     }
-  },
-  components: {
-    ResponsiveGolferName
   },
   setup(props) {
     const {getSkinWinners} = useSkins();

@@ -1,14 +1,16 @@
 <template>
   <div class="overflow-hidden flex justify-center flex-col sm:justify-start max-w-md">
-    
-    <skin-winners :weekData="skinResultData" :showHeader="false" />
+    <skin-winners
+      :week-data="skinResultData"
+      :show-header="false"
+    />
     
     <table
       v-if="skinResultData"
       class="table-auto border-collapse text-sm shadow-md rounded bg-white border-gray-200 mt-2"
     >
       <thead>
-        <tr >
+        <tr>
           <th class="border-b bg-gray-200" />
           <th class="text-center px-1 border">
             H
@@ -32,7 +34,10 @@
         >
           <tr class="border-b">
             <td class="text-right text-sm px-1">
-              <responsive-golfer-name :name="result.golferName" :shortName="result.golferShortName" />
+              <responsive-golfer-name
+                :name="result.golferName"
+                :short-name="result.golferShortName"
+              />
             </td>
             <td class="text-center border-r text-xs bg-gray-50">
               {{ result.handicap }}
@@ -49,7 +54,10 @@
             </td>
           </tr>
           <tr class="border-b">
-            <td colspan="2" class="text-right text-xs border-r bg-gray-200 pr-2">
+            <td
+              colspan="2"
+              class="text-right text-xs border-r bg-gray-200 pr-2"
+            >
               Net
             </td>
             <td
@@ -76,6 +84,10 @@ import ResponsiveGolferName from "../components/ResponsiveGolferName.vue"
 import SkinWinners from "../components/SkinWinners.vue";
 export default {
     name: "SkinResult",
+    components: {
+      ResponsiveGolferName,
+      SkinWinners
+    },
     props: {
         skinResultData: {
             type: Object,
@@ -83,10 +95,6 @@ export default {
                 return null;
             }
         }
-    },
-    components: {
-      ResponsiveGolferName,
-      SkinWinners
     },
     setup(props) {
         const {getGolferNames,formatDate} = useUtils(); 

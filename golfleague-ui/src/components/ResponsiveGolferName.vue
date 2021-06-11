@@ -1,6 +1,6 @@
 <template>
-    <span class="hidden sm:inline">{{ name }}</span>
-    <span class="sm:hidden">{{ shortName }}</span>
+  <span class="hidden sm:inline">{{ name }}</span>
+  <span class="sm:hidden">{{ shortName }}</span>
 </template>
 <script>
 export default {
@@ -19,8 +19,6 @@ export default {
         }
         
     },
-    setup() {
-
-    }
+    
 }
 </script>

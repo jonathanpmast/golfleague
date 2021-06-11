@@ -39,12 +39,12 @@ export default {
         loadSkinData("bmgnky");
       });
 
-      function nextSkinResult() {
+      const nextSkinResult = function() {
         if(currentSkinIndex.value > 0)
           currentSkinIndex.value--;
       };
 
-      function previousSkinResult() {
+      const previousSkinResult = function() {
         if(currentSkinIndex.value < skinData.value.length -1 )
         {
            currentSkinIndex.value++;
