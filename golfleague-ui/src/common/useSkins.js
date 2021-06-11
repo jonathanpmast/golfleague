@@ -1,5 +1,4 @@
 import {ref, computed} from "vue"
-
 const skinData = ref(null);
 
 export default function useSkins() {
@@ -7,7 +6,7 @@ export default function useSkins() {
     const loading = ref(false);
     const error = ref(null);
 
-    async function loadSkinData(leagueName) {
+    const loadSkinData = async function(leagueName) {
         if(skinData.value){
             if(debug) {
                 console.log(`skinData already loaded, skipping load`);
@@ -55,7 +54,7 @@ export default function useSkins() {
         })
     }  
 
-    function getSkinWinners(week) {
+    const getSkinWinners = function(week) {
         let winners = [];
         for(let j = 0; j < week.summary.holes.length; j++) {
             let summaryHole = week.summary.holes[j];
@@ -84,12 +83,30 @@ export default function useSkins() {
         return winners;
     }
 
+    const findSkinDataIndex=function(year,round) {
+        if(!skinData.value)
+            return -1;
+        for(let i=0; i<skinData.value.length; i++) {
+            let curSkinData = skinData.value[i];
+            if(curSkinData.roundYear == year && curSkinData.roundNumber == round) {
+                return i;
+            }
+        }
+        throw "no skin data for that year or round!"
+    }
+
+    const navToSkinResult = function (skinResult,router) {        
+        router.push({name: "Skins", params: {year: skinResult.roundYear, round: skinResult.roundNumber}});
+    }
+
     return {
         loading: computed(() => loading.value),
         error: computed(() => error.value),
         skinData: computed(() => skinData.value),
         loadSkinData,
-        getSkinWinners
+        getSkinWinners,
+        findSkinDataIndex,
+        navToSkinResult
     }
 }
 

@@ -14,11 +14,12 @@
         <h2 class="text-gray-700 text-xl md:text-2xl font-bold">
           Business Men's Golf League
         </h2>
-        <h3 class="text-sm font-light">at Boone Links Golf Course</h3>
+        <h3 class="text-sm font-light">
+          at Boone Links Golf Course
+        </h3>
       </header>
       
       <router-view />
-      
     </main>
   </div>
 </template>

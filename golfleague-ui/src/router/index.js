@@ -15,7 +15,7 @@ const routes = [
         component: About
     },
     {
-        path: "/Skins",
+        path: "/Skins/:year?/:round?",
         name: "Skins",
         component: Skins
     }
