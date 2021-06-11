@@ -1,9 +1,9 @@
 <template>
   <div v-if="skinData">
-    <h4 class="font-bold pb-2 mt-4 border-b border-gray-200 flex justify-center sm:justify-start">
-      <button @click="previousSkinResult"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg></button>
+    <h4 class="font-bold pb-2 mt-4 border-b border-gray-200 flex justify-center max-w-md">
+      <button @click="previousSkinResult" v-if="currentSkinIndex < skinData.length-1"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg></button>
       <span class="px-3">Skin Results for {{formatDate(currentSkinResult.roundPlayedDate)}}</span>  
-      <button @click="nextSkinResult"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg></button>
+      <button v-if="currentSkinIndex!=0" @click="nextSkinResult"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg></button>
     </h4>   
     <skin-result :skin-result-data="currentSkinResult" />
     </div>
@@ -58,7 +58,8 @@ export default {
           skinData,
           formatDate,
           nextSkinResult,
-          previousSkinResult
+          previousSkinResult,
+          currentSkinIndex
       };
     },
 }

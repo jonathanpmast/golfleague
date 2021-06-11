@@ -1,5 +1,5 @@
 <template>
-  <div v-if="skinData">
+  <div v-if="skinData" class="ml-2 sm:ml-0">
     <skin-winners
       v-for="n in numberOfSkinWinnerWeeks" 
       :key="n" 

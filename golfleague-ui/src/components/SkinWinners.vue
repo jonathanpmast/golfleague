@@ -1,6 +1,6 @@
 <template>
-  <div v-if="weekData && recentWinners">
-    <h4 class="font-bold pb-2 mt-4 border-b border-gray-200">Skin Winners for {{ formatDate(weekData.roundPlayedDate) }}  </h4>
+  <div v-if="weekData && recentWinners" class="max-w-md">
+    <h4 v-if="showHeader" class="font-bold pb-2 mt-4 border-b border-gray-200">Skin Winners for {{ formatDate(weekData.roundPlayedDate) }}  </h4>
     <ul class="mt-4 p-2 mb-3 rounded bg-white border-gray-200 shadow-md overflow-hidden">
       <li
         v-for="(hole,idx) in recentWinners"
@@ -29,6 +29,12 @@ export default {
         return null;
       }
     },
+    showHeader: {
+      type: Boolean,
+      default() {
+        return true;
+      }
+    }
   },
   components: {
     ResponsiveGolferName

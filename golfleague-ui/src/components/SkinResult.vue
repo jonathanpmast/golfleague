@@ -1,5 +1,8 @@
 <template>
-  <div class="overflow-hidden flex justify-center sm:justify-start">
+  <div class="overflow-hidden flex justify-center flex-col sm:justify-start max-w-md">
+    
+    <skin-winners :weekData="skinResultData" :showHeader="false" />
+    
     <table
       v-if="skinResultData"
       class="table-auto border-collapse text-sm shadow-md rounded bg-white border-gray-200 mt-2"
@@ -41,7 +44,7 @@
             >
               {{ hole.gross }}
             </td>
-            <td class="border-l border-r px-2">
+            <td class="border-l border-r px-2 text-center">
               {{ result.grossTotal }}
             </td>
           </tr>
@@ -57,7 +60,7 @@
             >
               {{ hole.net }}
             </td>
-            <td class="border-l border-r px-2">
+            <td class="border-l border-r px-2 text-center">
               {{ result.netTotal }}
             </td>
           </tr>
@@ -70,6 +73,7 @@
 import {computed} from "vue";
 import useUtils from "../common/useUtils";
 import ResponsiveGolferName from "../components/ResponsiveGolferName.vue"
+import SkinWinners from "../components/SkinWinners.vue";
 export default {
     name: "SkinResult",
     props: {
@@ -81,7 +85,8 @@ export default {
         }
     },
     components: {
-      ResponsiveGolferName
+      ResponsiveGolferName,
+      SkinWinners
     },
     setup(props) {
         const {getGolferNames,formatDate} = useUtils(); 

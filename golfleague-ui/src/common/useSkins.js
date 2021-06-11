@@ -61,14 +61,18 @@ export default function useSkins() {
             let summaryHole = week.summary.holes[j];
 
             if(summaryHole.winner !== "none") {
-                let winnerName = `${summaryHole.winner.split(',')[1].trim()} ${summaryHole.winner.split(',')[0].trim()}`
-                let holeIndex = (summaryHole.holeNumber-1 % 9 );
+                let split = summaryHole.winner.split(',');
+                let winnerName = split[0].trim();
+                if(split.length > 1)
+                    winnerName = `${split[1].trim()} ${split[0].trim()}`
+                let holeIndex = ((summaryHole.holeNumber-1) % 9 );
+                console.log(`SummaryHole.holeNumber: ${summaryHole.holeNumber} holeIndex: ${holeIndex}`)
                 if(debug)
                     console.log(`getSkinWinners::${winnerName} and holeIndex ${holeIndex}`);
                 winners.push (
                     {
                         winnerName : winnerName,
-                        winnerShortName: winnerName.split(' ')[0][0] +" "+ winnerName.split(' ')[1],
+                        winnerShortName: split.length == 1 ? winnerName: winnerName.split(' ')[0][0] +" "+ winnerName.split(' ')[1],
                         holeWon : summaryHole.holeNumber,
                         gross: week.results[summaryHole.winnerIndex].holes[holeIndex].gross,
                         net: week.results[summaryHole.winnerIndex].holes[holeIndex].net,
