@@ -6,8 +6,14 @@
 
     <main class="px-1 sm:px-4 md:px-16 sm:mr-8 py-6 md:col-span-4 lg:col-span-6 bg-gray-100">
       <div class="flex justify-center md:justify-end">
-        <!-- <a href="#">Log in</a>
-        <a href="#">Sign up</a> -->
+        <button
+          v-if="!isAuthenticated"
+          @click="signIn()"
+        >
+          Sign In
+        </button>
+
+        <!-- <a href="#">Sign up</a> -->
       </div>
 
       <header class="sm:ml-0 ml-2">
@@ -28,7 +34,20 @@
 import TheNav from './components/Nav.vue'
 
 export default {
-    components:{TheNav}    
+    components:{TheNav},
+    setup(){
+      const isAuthenticated = () => {
+        return this.$msal.isAuthenticated;
+      }
+
+      const signIn = async () => {
+        await this.$msal.signIn();
+      }
+      return {
+        isAuthenticated,
+        signIn
+      }
+    } 
 }
 </script>
 
