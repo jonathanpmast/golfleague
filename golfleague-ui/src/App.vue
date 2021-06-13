@@ -12,8 +12,6 @@
         >
           Sign In
         </button>
-
-        <!-- <a href="#">Sign up</a> -->
       </div>
 
       <header class="sm:ml-0 ml-2">
