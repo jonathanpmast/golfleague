@@ -1,7 +1,7 @@
 import {promises as fs} from "fs";
 import axios from "axios";
 import XLSX from "xlsx";
-import {pathsToExcelWorkbook,scoresUrl,configUrl} from "./config.js";
+import {pathsToExcelWorkbook,scoresUrl,configUrl,startYear} from "./config.js";
 
 async function main() {
     console.log("starting...");
@@ -11,7 +11,7 @@ async function main() {
     {
         let pathToExcelWorkbook = pathsToExcelWorkbook[i];
         console.log("Processing " + pathToExcelWorkbook);
-        let skinsData = await readSkinsData(pathToExcelWorkbook,2020 + i, i == 0);
+        let skinsData = await readSkinsData(pathToExcelWorkbook,startYear + i, i == 0);
         for(let idx = 0; idx < skinsData.roundData.length; idx++) {
             let roundData = skinsData.roundData[idx];
             
