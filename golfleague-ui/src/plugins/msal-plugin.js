@@ -1,8 +1,8 @@
 import * as msal from "@azure/msal-browser";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 
 let msalInstance = msal.PublicClientApplication;
-
+let userInfo = ref(null);
 export let msalPluginInstance = null;
 
 export class MSALPlugin{ 
@@ -17,10 +17,16 @@ export class MSALPlugin{
         if (!options) {
             throw new Error("MsalPluginOptions must be specified");
         }
+        console.log(options);
         this.pluginOptions = options;
         this.initialize(options);
         msalPluginInstance = this;
-        app.config.globalProperties.$msal = reactive(msalPluginInstance);
+
+        let reactiveMsalPluginInstance = reactive(msalPluginInstance);
+        
+        app.provide('msalPluginInstance', reactiveMsalPluginInstance);
+        app.provide('userInfo',userInfo);
+        this.ensureUserInfo();
     };
 
     initialize = (options) => {
@@ -57,31 +63,30 @@ export class MSALPlugin{
             }
         };
         msalInstance = new msal.PublicClientApplication(msalConfig);
-        this.isAuthenticated = this.getIsAuthenticated();
+        
     }
 
     signIn = async () => {
         try {
             const loginRequest = {
-                scopes: ["openid", "profile", "offline_access", "https://davecob2cc.onmicrosoft.com/bcc7d959-3458-4197-a109-26e64938a435/access_api"],
+                scopes: ["openid", "profile", "offline_access"],
             };
-            const loginResponse = await msalInstance.loginPopup(loginRequest);
-            this.isAuthenticated = !!loginResponse.account;
-            // do something with this?
+            const loginResponse = await msalInstance.loginPopup(loginRequest);     
+            userInfo.value = loginResponse.account       
         } catch (err) {
             // handle error
             if (err.errorMessage && err.errorMessage.indexOf("AADB2C90118") > -1) {
                 try {
                     const passwordResetResponse= await msalInstance.loginPopup({
-                        scopes: ["openid", "profile", "offline_access", "<The scope for your API>"],
+                        scopes: ["openid", "profile", "offline_access", "test"],
                         authority: this.pluginOptions.passwordAuthority
                     });
-                        this.isAuthenticated = !!passwordResetResponse.account;
+                    userInfo.value = passwordResetResponse.account;
                 } catch (passwordResetError) {
                     console.error(passwordResetError);
                 }
             } else {
-                this.isAuthenticated = false;
+                userInfo.value = null;
             }
 
         }
@@ -89,16 +94,17 @@ export class MSALPlugin{
 
     signOut = async () => {
         await msalInstance.logout();
-        this.isAuthenticated = false;
+        userInfo.value = null;
     }
 
     acquireToken = async () => {
         const request = {
             account: msalInstance.getAllAccounts()[0],
-            scopes: ["<The scope for your API>"]
+            scopes: ["test"]
         };
         try {
             const response = await msalInstance.acquireTokenSilent(request);
+            this.ensureUserInfo();
             return response.accessToken;            
         } catch (error) {
             if (error instanceof msal.InteractionRequiredAuthError) {
@@ -111,7 +117,16 @@ export class MSALPlugin{
     }
 
     getIsAuthenticated = () =>{
+        
         const accounts = msalInstance.getAllAccounts();
-        return accounts && accounts.length > 0;
+        if(accounts && accounts.length > 0) {
+            return true;
+        }
+    }
+
+    ensureUserInfo = () => {
+        if(!userInfo.value && this.getIsAuthenticated()) {
+            userInfo.value = msalInstance.getAllAccounts()[0];
+        }
     }
 }

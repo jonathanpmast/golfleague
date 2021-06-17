@@ -2,7 +2,7 @@ import {ref, computed} from "vue"
 const skinData = ref(null);
 
 export default function useSkins() {
-    const debug = true;
+    const debug = false;
     const loading = ref(false);
     const error = ref(null);
 
@@ -65,9 +65,10 @@ export default function useSkins() {
                 if(split.length > 1)
                     winnerName = `${split[1].trim()} ${split[0].trim()}`
                 let holeIndex = ((summaryHole.holeNumber-1) % 9 );
-                console.log(`SummaryHole.holeNumber: ${summaryHole.holeNumber} holeIndex: ${holeIndex}`)
-                if(debug)
+                if(debug) {
                     console.log(`getSkinWinners::${winnerName} and holeIndex ${holeIndex}`);
+                    console.log(`SummaryHole.holeNumber: ${summaryHole.holeNumber} holeIndex: ${holeIndex}`)
+                }
                 winners.push (
                     {
                         winnerName : winnerName,
