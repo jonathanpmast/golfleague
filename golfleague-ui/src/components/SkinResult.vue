@@ -6,7 +6,7 @@
     />
     
     <table
-      v-if="skinResultData"
+      v-if="skinResultData && configData"
       class="table-auto border-collapse text-sm shadow-md rounded bg-white border-gray-200 mt-2"
     >
       <thead>
@@ -24,6 +24,40 @@
           </th>
           <th class="text-center px-1 border">
             T
+          </th>
+        </tr>
+        <tr>
+          
+          <th class="text-right px-1 border" colspan="2">
+            Stroke Index
+          </th>
+          <th
+            v-for="n in 9"
+            :key="n"
+            class="text-center px-1 border"
+          >
+            {{ configData.courseData.holes[skinResultData.startHole-2 +n].strokeIndex }}
+            
+          </th>
+          <th class="text-center px-1 border">
+            
+          </th>
+        </tr>
+        <tr>
+          
+          <th class="text-right px-1 border" colspan="2">
+            Par
+          </th>
+          <th
+            v-for="n in 9"
+            :key="n"
+            class="text-center px-1 border bg-gray-50"
+          >
+            {{ configData.courseData.holes[skinResultData.startHole-2 +n].par }}
+            
+          </th>
+          <th class="text-center px-1 border">
+            
           </th>
         </tr>
       </thead>
@@ -47,7 +81,11 @@
               :key="index"
               class="text-center"
             >
-              {{ hole.gross }}
+              <div 
+              :class="{'rounded-full border border-gray-500':isGrossUnderPar(hole.gross,configData.courseData.holes[skinResultData.startHole-1+index].par)}"
+              >
+                {{ hole.gross }}
+              </div>
             </td>
             <td class="border-l border-r px-2 text-center">
               {{ result.grossTotal }}
@@ -94,10 +132,19 @@ export default {
             default() {
                 return null;
             }
+        },
+        configData: {
+          type: Object,
+          default() {
+            return null;
+          }
         }
     },
     setup(props) {
         const {getGolferNames,formatDate} = useUtils(); 
+        const isGrossUnderPar = (score,par) => {          
+          return score < par;
+        }
         const formattedSkinResultData = computed(() => {
             if(!props.skinResultData)
                 return null;
@@ -128,7 +175,8 @@ export default {
 
         return {
             formattedSkinResultData,
-            formatDate
+            formatDate,
+            isGrossUnderPar
         }
     },
 }

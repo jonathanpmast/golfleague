@@ -35,7 +35,7 @@
         /></svg>
       </button>
     </h4>   
-    <skin-result :skin-result-data="currentSkinResult" />
+    <skin-result :skin-result-data="currentSkinResult" :configData="configData" />
   </div>
   <p v-if="loading">
     Still loading..
@@ -48,6 +48,7 @@
 import { computed, onMounted } from "vue"; 
 import useUtils from "../common/useUtils";
 import useSkins from "../common/useSkins";
+import useConfig from "../common/useConfig";
 import SkinResult from "../components/SkinResult.vue";
 import { useRoute, useRouter } from 'vue-router';
 
@@ -64,7 +65,8 @@ export default {
     },
 
     setup() {
-      const { loading, error, skinData, loadSkinData, findSkinDataIndex, navToSkinResult } = useSkins();
+      const { loading: skinsLoading, error: skinsLoadingError, skinData, loadSkinData, findSkinDataIndex, navToSkinResult } = useSkins();
+      const { loading: configLoading, error: configLoadingError, configData, loadConfigData} = useConfig();
       const { formatDate } = useUtils();
       
       const route = useRoute();
@@ -88,6 +90,7 @@ export default {
       });
       onMounted(() => {
         loadSkinData("bmgnky");
+        loadConfigData("bmgnky");
       });
       
       const nextSkinResult = function() {
@@ -109,10 +112,11 @@ export default {
       };
 
       return {
-          loading,
-          error,
+          loading: computed(() => skinsLoading.value || configLoading.value),
+          error: computed(() => skinsLoadingError.value || configLoadingError.value),
           currentSkinResult,
           skinData,
+          configData,
           formatDate,
           nextSkinResult,
           previousSkinResult
