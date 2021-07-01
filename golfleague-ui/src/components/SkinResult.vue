@@ -82,7 +82,7 @@
               class="text-center"
             >
               <div 
-              :class="{'rounded-full border border-gray-500':isGrossUnderPar(hole.gross,configData.courseData.holes[skinResultData.startHole-1+index].par)}"
+              :class="{'rounded-full border border-gray-500 flex items-center justify-center h-5 w-5':isGrossUnderPar(hole.gross,configData.courseData.holes[skinResultData.startHole-1+index].par)}"
               >
                 {{ hole.gross }}
               </div>
