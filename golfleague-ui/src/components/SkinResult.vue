@@ -165,10 +165,10 @@ export default {
                 };
                 for(let j = 0; j < result.holes.length; j++) {
                     let holeData = result.holes[j]
-                    golferData.netTotal += holeData.net;
                     golferData.grossTotal += holeData.gross;
                     golferData.holes.push(holeData);
                 }
+                golferData.netTotal=golferData.grossTotal - golferData.handicap;
                 vm.push(golferData);
             }
             return vm;

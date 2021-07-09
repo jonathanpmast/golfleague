@@ -9,7 +9,10 @@
     >
       Skin Winners for {{ formatDate(weekData.roundPlayedDate) }}
     </h4>
-    <ul class="mt-4 p-2 mb-3 rounded bg-white border-gray-200 shadow-md overflow-hidden">
+    <ul 
+      v-if="showWinners" 
+      class="mt-4 p-2 mb-3 rounded bg-white border-gray-200 shadow-md overflow-hidden"
+    >
       <li
         v-for="(hole,idx) in recentWinners"
         :key="idx"
@@ -22,7 +25,13 @@
           />
         </span> won <span class="font-bold">{{ formatDollars(hole.amountWon) }}</span> on <span class="font-bold">#{{ hole.holeWon }}</span> with a <span class="font-bold">{{ hole.gross }} net {{ hole.net }}</span>
       </li>
-    </ul>    
+    </ul>
+    <p
+      v-if="!showWinners"
+      class="mt-4 p-2 mb-3 rounded bg-white border-gray-200 shadow-md overflow-hidden"
+    >
+      No winners this week!  Megaskins coming up next week!
+    </p>    
   </div>
 </template>
 <script>
@@ -53,7 +62,7 @@ export default {
     const {getSkinWinners} = useSkins();
     const {formatDate} = useUtils();
     const recentWinners = computed(() => getSkinWinners(props.weekData));    
-    
+    const showWinners = computed(() => recentWinners.value.length > 0);
     const formatDollars = function(number) {
         var formatter = new Intl.NumberFormat('en-US' , {
           style: 'currency',
@@ -66,7 +75,8 @@ export default {
       getSkinWinners,
       formatDate,
       formatDollars,
-      recentWinners
+      recentWinners,
+      showWinners
     };
   }
 }
