@@ -1,4 +1,5 @@
-const PER_SKIN_VALUE = 5;
+const STANDARD_PER_SKIN_VALUE = 5;
+let PER_SKIN_VALUE = STANDARD_PER_SKIN_VALUE;
 // assumes it's a 9 hole round and takes the skinResults data set, 
 // looping through each golfer/hole and setting flags if a golfer canceled or won a skin
 function calculateSkins(skinResults) {
@@ -92,7 +93,7 @@ function buildSummary(skinResults) {
 // the data is a json document which, in th is case, is sourced out of an Azure Cosmos DB, additionally receives a 
 // configuration document in the "golfLeagueConfig" parameter that defines things like the stroke index for a
 // given hole
-export default async function (context, queueTrigger, golfLeagueConfig, documents) {
+export default async function (context, queueTrigger, golfLeagueConfig, documents, lastWeeksScores) {
     let skinResults = [];
     let skinResultIDs = [];
     
@@ -100,12 +101,17 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     const golferScores = scoreData.golferScores;
     const strokeIndexes = getStrokeIndexes(golfLeagueConfig[0].courseData.holes,scoreData);
     
+    if(lastWeeksScores && lastWeeksScores.summary.totalSkins === 0) {
+        PER_SKIN_VALUE = lastWeeksScores.perSkinValue + STANDARD_PER_SKIN_VALUE;
+    }
+
     skinResultIDs.push({
         "roundId" : scoreData.id, 
         "roundNumber": scoreData.roundNumber,
         "roundYear" : scoreData.roundYear,
         "roundPlayedDate": scoreData.roundPlayedDate,
-        "leagueName" : queueTrigger.leagueName
+        "leagueName" : queueTrigger.leagueName,
+        "perSkinValue": PER_SKIN_VALUE
     });
 
     skinResults = {};  

@@ -42,6 +42,16 @@
       "connectionStringSetting": "CosmosDbConnectionString",
       "id": "{roundId}",
       "partitionKey": "{leagueName}"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "lastWeeksScores",
+      "databaseName": "golfleague",
+      "collectionName": "golfleague-scores",
+      "connectionStringSetting": "CosmosDbConnectionString",
+      "id": "{roundId-1}",
+      "partitionKey": "{leagueName}"
     }
   ]
 }
