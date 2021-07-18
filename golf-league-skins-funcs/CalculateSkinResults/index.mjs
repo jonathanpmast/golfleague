@@ -84,7 +84,7 @@ function buildSummary(skinResults) {
             }
         }
     }
-    summary.totalSkinMoney = summary.totalEntrants * PER_SKIN_VALUE;
+    summary.totalSkinMoney = summary.totalSkins === 0 ? 0 : summary.totalEntrants * PER_SKIN_VALUE;
     return summary;
 }
 
