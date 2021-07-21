@@ -48,9 +48,9 @@
       "direction": "in",
       "name": "lastWeeksScores",
       "databaseName": "golfleague",
-      "collectionName": "golfleague-scores",
+      "collectionName": "golfleague-skinresults",
       "connectionStringSetting": "CosmosDbConnectionString",
-      "id": "{roundId-1}",
+      "sqlQuery": "SELECT * FROM c WHERE c.roundNumber = ToString(StringToNumber(SUBSTRING({roundId},4,2)) - 1) AND c.roundYear = SUBSTRING({roundId},0,4)",
       "partitionKey": "{leagueName}"
     }
   ]

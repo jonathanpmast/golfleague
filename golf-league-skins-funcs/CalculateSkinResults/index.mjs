@@ -101,8 +101,8 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     const golferScores = scoreData.golferScores;
     const strokeIndexes = getStrokeIndexes(golfLeagueConfig[0].courseData.holes,scoreData);
     
-    if(lastWeeksScores && lastWeeksScores.summary.totalSkins === 0) {
-        PER_SKIN_VALUE = lastWeeksScores.perSkinValue + STANDARD_PER_SKIN_VALUE;
+    if(lastWeeksScores && lastWeeksScores.length > 0 && lastWeeksScores[0].summary.totalSkins === 0) {
+        PER_SKIN_VALUE = lastWeeksScores[0].perSkinValue + STANDARD_PER_SKIN_VALUE;
     }
 
     skinResultIDs.push({
@@ -121,6 +121,7 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     skinResults.startHole = scoreData.startHole;
     skinResults.roundPlayedDate = scoreData.roundPlayedDate;
     skinResults.leagueName = queueTrigger.leagueName;
+    skinResults.perSkinValue = PER_SKIN_VALUE;
     skinResults.results=[];
     
     for(let k = 0; k < golferScores.length; k++) {        
