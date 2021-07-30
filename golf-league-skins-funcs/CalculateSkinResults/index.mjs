@@ -1,5 +1,4 @@
 const STANDARD_PER_SKIN_VALUE = 5;
-let PER_SKIN_VALUE = STANDARD_PER_SKIN_VALUE;
 // assumes it's a 9 hole round and takes the skinResults data set, 
 // looping through each golfer/hole and setting flags if a golfer canceled or won a skin
 function calculateSkins(skinResults) {
@@ -85,7 +84,7 @@ function buildSummary(skinResults) {
             }
         }
     }
-    summary.totalSkinMoney = summary.totalSkins === 0 ? 0 : summary.totalEntrants * PER_SKIN_VALUE;
+    summary.totalSkinMoney = summary.totalSkins === 0 ? 0 : summary.totalEntrants * skinResults.perSkinValue;
     return summary;
 }
 
@@ -96,13 +95,13 @@ function buildSummary(skinResults) {
 export default async function (context, queueTrigger, golfLeagueConfig, documents, lastWeeksScores) {
     let skinResults = [];
     let skinResultIDs = [];
-    
+    let perSkinValue = STANDARD_PER_SKIN_VALUE;
     const scoreData = documents; 
     const golferScores = scoreData.golferScores;
     const strokeIndexes = getStrokeIndexes(golfLeagueConfig[0].courseData.holes,scoreData);
     
     if(lastWeeksScores && lastWeeksScores.length > 0 && lastWeeksScores[0].summary.totalSkins === 0) {
-        PER_SKIN_VALUE = lastWeeksScores[0].perSkinValue + STANDARD_PER_SKIN_VALUE;
+        perSkinValue = lastWeeksScores[0].perSkinValue + STANDARD_PER_SKIN_VALUE;
     }
 
     skinResultIDs.push({
@@ -111,7 +110,7 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
         "roundYear" : scoreData.roundYear,
         "roundPlayedDate": scoreData.roundPlayedDate,
         "leagueName" : queueTrigger.leagueName,
-        "perSkinValue": PER_SKIN_VALUE
+        "perSkinValue": perSkinValue
     });
 
     skinResults = {};  
@@ -121,7 +120,7 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     skinResults.startHole = scoreData.startHole;
     skinResults.roundPlayedDate = scoreData.roundPlayedDate;
     skinResults.leagueName = queueTrigger.leagueName;
-    skinResults.perSkinValue = PER_SKIN_VALUE;
+    skinResults.perSkinValue = perSkinValue;
     skinResults.results=[];
     
     for(let k = 0; k < golferScores.length; k++) {        
