@@ -84,7 +84,9 @@ function buildSummary(skinResults) {
             }
         }
     }
-    summary.totalSkinMoney = summary.totalSkins === 0 ? 0 : summary.totalEntrants * skinResults.perSkinValue;
+    
+    summary.totalSkinMoney = skinResults.carryOverSkinMoney + (summary.TotalEntrants * skinResults.perSkinValue);
+    summary.totalSkinMoneyPaid = summary.totalSkins === 0 ? 0 : summary.totalSkinMoney;    
     return summary;
 }
 
@@ -99,9 +101,9 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     const scoreData = documents; 
     const golferScores = scoreData.golferScores;
     const strokeIndexes = getStrokeIndexes(golfLeagueConfig[0].courseData.holes,scoreData);
-    
+    let carryOverSkinMoney = 0;
     if(lastWeeksScores && lastWeeksScores.length > 0 && lastWeeksScores[0].summary.totalSkins === 0) {
-        perSkinValue = lastWeeksScores[0].perSkinValue + STANDARD_PER_SKIN_VALUE;
+        carryOverSkinMoney = lastWeeksScores[0].summary.totalSkinMoney;
     }
 
     skinResultIDs.push({
@@ -121,6 +123,7 @@ export default async function (context, queueTrigger, golfLeagueConfig, document
     skinResults.roundPlayedDate = scoreData.roundPlayedDate;
     skinResults.leagueName = queueTrigger.leagueName;
     skinResults.perSkinValue = perSkinValue;
+    skinResults.carryOverSkinMoney = carryOverSkinMoney;
     skinResults.results=[];
     
     for(let k = 0; k < golferScores.length; k++) {        
