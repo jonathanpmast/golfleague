@@ -27,8 +27,10 @@
           </th>
         </tr>
         <tr>
-          
-          <th class="text-right px-1 border" colspan="2">
+          <th
+            class="text-right px-1 border"
+            colspan="2"
+          >
             Stroke Index
           </th>
           <th
@@ -37,15 +39,14 @@
             class="text-center px-1 border"
           >
             {{ configData.courseData.holes[skinResultData.startHole-2 +n].strokeIndex }}
-            
           </th>
-          <th class="text-center px-1 border">
-            
-          </th>
+          <th class="text-center px-1 border" />
         </tr>
         <tr>
-          
-          <th class="text-right px-1 border" colspan="2">
+          <th
+            class="text-right px-1 border"
+            colspan="2"
+          >
             Par
           </th>
           <th
@@ -54,11 +55,8 @@
             class="text-center px-1 border bg-gray-50"
           >
             {{ configData.courseData.holes[skinResultData.startHole-2 +n].par }}
-            
           </th>
-          <th class="text-center px-1 border">
-            
-          </th>
+          <th class="text-center px-1 border" />
         </tr>
       </thead>
       <tbody>
@@ -83,7 +81,7 @@
             >
               <div 
               
-              :class="{'rounded-full border border-gray-500 h-5 w-5 ml-0.5':isGrossUnderPar(hole.gross,configData.courseData.holes[skinResultData.startHole-1+index].par)}"
+                :class="{'rounded-full border border-gray-500 h-5 w-5 ml-0.5':isGrossUnderPar(hole.gross,configData.courseData.holes[skinResultData.startHole-1+index].par)}"
               >
                 {{ hole.gross }}
               </div>

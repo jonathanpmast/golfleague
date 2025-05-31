@@ -1,9 +1,9 @@
 <template>
-This is the Login View.
+  This is the Login View.
 </template>
 <script>
 export default {
-   name: "Login",
+   name: "LoginPage",
     components: {
         
     }, 

@@ -35,7 +35,10 @@
         /></svg>
       </button>
     </h4>   
-    <skin-result :skin-result-data="currentSkinResult" :configData="configData" />
+    <skin-result
+      :skin-result-data="currentSkinResult"
+      :config-data="configData"
+    />
   </div>
   <p v-if="loading">
     Still loading..
@@ -59,7 +62,7 @@ const checkRouteParams = function(params) {
 }
 
 export default {
-    name: "Skins",
+    name: "SkinsPage",
     components: {
         SkinResult
     },    setup() {

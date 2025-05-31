@@ -9,9 +9,12 @@
       <h2 class="text-lg font-semibold text-gray-900 mb-4">
         Round Information
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">        <div>
-          <label for="date"
-                 class="block text-sm font-medium text-gray-700 mb-1">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label
+            for="date"
+            class="block text-sm font-medium text-gray-700 mb-1"
+          >
             Date
           </label>
           <input
@@ -22,7 +25,10 @@
           >
         </div>
         <div>
-          <label for="round" class="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            for="round"
+            class="block text-sm font-medium text-gray-700 mb-1"
+          >
             Round Number
           </label>
           <input
@@ -34,7 +40,10 @@
           >
         </div>
         <div>
-          <label for="course" class="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            for="course"
+            class="block text-sm font-medium text-gray-700 mb-1"
+          >
             Course
           </label>
           <input

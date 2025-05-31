@@ -5,17 +5,30 @@
     </h1>
     
     <!-- Loading State -->
-    <div v-if="loading" class="text-center py-8">
-      <div class="text-gray-600">Loading configuration...</div>
+    <div
+      v-if="loading"
+      class="text-center py-8"
+    >
+      <div class="text-gray-600">
+        Loading configuration...
+      </div>
     </div>
     
     <!-- Error State -->
-    <div v-else-if="error" class="bg-red-50 border border-red-200 rounded-md p-4 mb-6">
-      <div class="text-red-800">Error: {{ error }}</div>
+    <div
+      v-else-if="error"
+      class="bg-red-50 border border-red-200 rounded-md p-4 mb-6"
+    >
+      <div class="text-red-800">
+        Error: {{ error }}
+      </div>
     </div>
     
     <!-- Configuration Form -->
-    <div v-else class="space-y-6">
+    <div
+      v-else
+      class="space-y-6"
+    >
       <!-- Course Information -->
       <div class="bg-white rounded-lg shadow p-6">
         <h2 class="text-lg font-semibold text-gray-900 mb-4">
@@ -23,7 +36,10 @@
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="configId" class="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              for="configId"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
               Config ID
             </label>
             <input
@@ -34,7 +50,10 @@
             >
           </div>
           <div>
-            <label for="courseName" class="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              for="courseName"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
               Course Name
             </label>
             <input
@@ -54,8 +73,8 @@
             Holes Configuration
           </h2>
           <button
-            @click="addHole"
             class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            @click="addHole"
           >
             Add Hole
           </button>
@@ -65,10 +84,18 @@
           <table class="w-full border-collapse">
             <thead>
               <tr class="bg-gray-50">
-                <th class="text-left py-2 px-3 font-medium text-gray-700">Hole #</th>
-                <th class="text-center py-2 px-3 font-medium text-gray-700">Par</th>
-                <th class="text-center py-2 px-3 font-medium text-gray-700">Stroke Index</th>
-                <th class="text-center py-2 px-3 font-medium text-gray-700">Actions</th>
+                <th class="text-left py-2 px-3 font-medium text-gray-700">
+                  Hole #
+                </th>
+                <th class="text-center py-2 px-3 font-medium text-gray-700">
+                  Par
+                </th>
+                <th class="text-center py-2 px-3 font-medium text-gray-700">
+                  Stroke Index
+                </th>
+                <th class="text-center py-2 px-3 font-medium text-gray-700">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -91,9 +118,15 @@
                     v-model.number="hole.par"
                     class="w-20 p-1 text-center border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
                   >
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="3">
+                      3
+                    </option>
+                    <option value="4">
+                      4
+                    </option>
+                    <option value="5">
+                      5
+                    </option>
                   </select>
                 </td>
                 <td class="py-2 px-3">
@@ -107,8 +140,8 @@
                 </td>
                 <td class="py-2 px-3 text-center">
                   <button
-                    @click="removeHole(index)"
                     class="px-2 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700"
+                    @click="removeHole(index)"
                   >
                     Remove
                   </button>
@@ -138,22 +171,26 @@
       <div class="bg-white rounded-lg shadow p-6">
         <div class="flex gap-4">
           <button
-            @click="loadConfig"
             class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            @click="loadConfig"
           >
             Reload Config
           </button>
           <button
-            @click="saveConfig"
             :disabled="isSaving"
             class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            @click="saveConfig"
           >
             {{ isSaving ? 'Saving...' : 'Save Configuration' }}
           </button>
         </div>
         
         <!-- Validation Messages -->
-        <div v-if="validationErrors.length > 0" class="mt-4">          <div
+        <div
+          v-if="validationErrors.length > 0"
+          class="mt-4"
+        >
+          <div
             v-for="validationError in validationErrors"
             :key="validationError"
             class="text-sm text-red-600 mb-1"
@@ -163,7 +200,10 @@
         </div>
         
         <!-- Success Message -->
-        <div v-if="successMessage" class="mt-4 text-sm text-green-600">
+        <div
+          v-if="successMessage"
+          class="mt-4 text-sm text-green-600"
+        >
           {{ successMessage }}
         </div>
       </div>

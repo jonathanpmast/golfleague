@@ -1,5 +1,8 @@
 <template>
-  <div v-if="skinData" class="ml-2 sm:ml-0">
+  <div
+    v-if="skinData"
+    class="ml-2 sm:ml-0"
+  >
     <skin-winners
       v-for="n in numberOfSkinWinnerWeeks" 
       :key="n" 
@@ -21,7 +24,7 @@ import useSkins from "../common/useSkins";
 import SkinWinners from '../components/SkinWinners.vue';
 
 export default {
-    name: 'Home',
+    name: 'HomePage',
     components: {
         SkinWinners
     },    setup() {

@@ -21,7 +21,6 @@
 
 <script>
 import TheNav from './components/Nav.vue'
-import {inject} from "vue"
 export default {
     components:{TheNav},
     setup(){
