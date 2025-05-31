@@ -3,13 +3,14 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
-  process.env = {...process.env, ...loadEnv(mode, process.cwd())};
+  const env = loadEnv(mode, process.cwd(), '');
   
   let _server = {};
   if(mode=='development') {
-    _server.port = process.env.VITE_SERVER_PORT || 3000
+    _server.port = parseInt(env.VITE_SERVER_PORT) || 3123;
+    _server.strictPort = false; // Allow auto-increment if port is busy
   }
-  console.log(_server);
+  console.log('Vite server config:', _server);
   return defineConfig(
   {
     plugins: [vue()],

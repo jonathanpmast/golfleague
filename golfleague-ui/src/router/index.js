@@ -3,27 +3,43 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Skins from "../views/Skins.vue";
 import Login from "../views/Login.vue";
+import ScoreEntry from "../views/ScoreEntry.vue";
+import Config from "../views/Config.vue";
 
 const routes = [
     {
         path: "/",
+        redirect: "/bmgnky" // Default redirect to default league
+    },
+    {
+        path: "/:leagueName",
         name: "Home",
         component: Home
     },
     {
-        path: "/about",
+        path: "/:leagueName/about",
         name: "About",
         component: About
     },
     {
-        path: "/Skins/:year?/:round?",
+        path: "/:leagueName/scores",
+        name: "ScoreEntry",
+        component: ScoreEntry
+    },
+    {
+        path: "/:leagueName/skins/:year?/:round?",
         name: "Skins",
         component: Skins
     },
     {
-        path: "/Login",
+        path: "/:leagueName/login",
         name: "Login",
         component: Login
+    },
+    {
+        path: "/:leagueName/config",
+        name: "Config",
+        component: Config
     }
 ];
 

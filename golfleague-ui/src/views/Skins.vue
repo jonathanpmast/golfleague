@@ -62,15 +62,17 @@ export default {
     name: "Skins",
     components: {
         SkinResult
-    },
-
-    setup() {
+    },    setup() {
       const { loading: skinsLoading, error: skinsLoadingError, skinData, loadSkinData, findSkinDataIndex, navToSkinResult } = useSkins();
       const { loading: configLoading, error: configLoadingError, configData, loadConfigData} = useConfig();
       const { formatDate } = useUtils();
       
       const route = useRoute();
       const router = useRouter();
+      
+      // Get league name from route params, fallback to default
+      const leagueName = computed(() => route.params.leagueName || 'bmgnky')
+      
       let currentSkinIndex = 0;
       
       const currentSkinResult = computed(() => {
@@ -87,19 +89,17 @@ export default {
             }
         }
         return null;
+      });      onMounted(() => {
+        loadSkinData(leagueName.value);
+        loadConfigData(leagueName.value);
       });
-      onMounted(() => {
-        loadSkinData("bmgnky");
-        loadConfigData("bmgnky");
-      });
-      
-      const nextSkinResult = function() {
+        const nextSkinResult = function() {
         let targetSkinData = null;
         if(currentSkinIndex > 0)
           targetSkinData = skinData.value[currentSkinIndex-1];
         else
           targetSkinData = skinData.value[skinData.value.length - 1];
-        navToSkinResult(targetSkinData, router);
+        navToSkinResult(targetSkinData, router, leagueName.value);
       };
 
       const previousSkinResult = function() {
@@ -108,7 +108,7 @@ export default {
           targetSkinData = skinData.value[currentSkinIndex+1];
         else
           targetSkinData = skinData.value[0];
-        navToSkinResult(targetSkinData,router);
+        navToSkinResult(targetSkinData, router, leagueName.value);
       };
 
       return {

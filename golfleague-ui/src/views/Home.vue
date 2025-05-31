@@ -14,7 +14,8 @@
   </p>  
 </template>
 <script>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, computed} from 'vue';
+import { useRoute } from 'vue-router';
 
 import useSkins from "../common/useSkins";
 import SkinWinners from '../components/SkinWinners.vue';
@@ -23,13 +24,16 @@ export default {
     name: 'Home',
     components: {
         SkinWinners
-    },
-    setup() {
+    },    setup() {
+      const route = useRoute();
       const {loadSkinData, loading, error, skinData} = useSkins();
       const numberOfSkinWinnerWeeks = ref(4);
+      
+      // Get league name from route params, fallback to default
+      const leagueName = computed(() => route.params.leagueName || 'bmgnky');
 
       onMounted(() => {
-        loadSkinData("bmgnky");
+        loadSkinData(leagueName.value);
       });
       
       return{

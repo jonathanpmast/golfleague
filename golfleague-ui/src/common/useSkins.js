@@ -1,4 +1,6 @@
 import {ref, computed} from "vue"
+import { buildApiUrl } from "./useUtils"
+
 const skinData = ref(null);
 
 export default function useSkins() {
@@ -15,8 +17,7 @@ export default function useSkins() {
         }
         if(debug) 
             console.log(`loading skin data for ${leagueName}`);
-        loading.value = true;
-        return fetch(`https://func-eus2-golfleague.azurewebsites.net/${leagueName}/skins`, {
+        loading.value = true;        return fetch(buildApiUrl('skins', leagueName), {
             method: 'get',
             headers: {
                 'content-type': 'application/json'
@@ -91,13 +92,19 @@ export default function useSkins() {
             let curSkinData = skinData.value[i];
             if(curSkinData.roundYear == year && curSkinData.roundNumber == round) {
                 return i;
-            }
-        }
+            }        }
         throw "no skin data for that year or round!"
     }
-
-    const navToSkinResult = function (skinResult,router) {        
-        router.push({name: "Skins", params: {year: skinResult.roundYear, round: skinResult.roundNumber}});
+    
+    const navToSkinResult = function (skinResult, router, leagueName = 'bmgnky') {        
+        router.push({
+            name: "Skins", 
+            params: {
+                leagueName: leagueName,
+                year: skinResult.roundYear, 
+                round: skinResult.roundNumber
+            }
+        });
     }
 
     return {

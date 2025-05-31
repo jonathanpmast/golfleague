@@ -33,9 +33,8 @@
         v-for="item in navData"
         :key="item.id"
         class="text-gray-700 font-bold py-1"
-      >
-        <router-link
-          :to="item.link"
+      >        <router-link
+          :to="buildNavLink(item.link)"
           class="flex justify-end px-4"
         >
           <span>{{ item.title }}</span>
@@ -83,14 +82,31 @@
 
 <script>
 import data from "../common/data";
-import { ref, inject} from "vue";
+import { ref, inject, computed} from "vue";
+import { useRoute } from "vue-router";
+
 export default {
   
   setup() {
+      const route = useRoute();
       const navData = data.navData;
       const menuIsHidden = ref(true);
       const userInfo = inject('userInfo');
       const msalPlugin = inject('msalPluginInstance');
+      
+      // Get current league name from route params, default to 'bmgnky'
+      const currentLeague = computed(() => {
+        return route.params.leagueName || 'bmgnky';
+      });
+      
+      // Build navigation links with league parameter
+      const buildNavLink = (basePath) => {
+        if (basePath === '/') {
+          return `/${currentLeague.value}`;
+        }
+        return `/${currentLeague.value}${basePath}`;
+      };
+      
       const toggleMenu = () => { 
           menuIsHidden.value = !menuIsHidden.value;
         };
@@ -112,7 +128,9 @@ export default {
           userInfo,
           isAuthenticated,
           signIn,
-          signOut
+          signOut,
+          buildNavLink,
+          currentLeague
       }
   }
 }
